@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Western Hemisphere Prison & Detention Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#05050d;--bg2:#0a0a18;--bg3:#0f0f22;
+  --border:#1a1a35;--border2:#252545;
+  --red:#dc2626;--red2:#ef4444;--red3:#fca5a5;
+  --gold:#d97706;--gold2:#fbbf24;
+  --green:#15803d;--green2:#22c55e;
+  --blue:#1d4ed8;--blue2:#3b82f6;
+  --purple:#7c3aed;--purple2:#a78bfa;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;
+}
+body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* HEADER */
+.header{
+  background:linear-gradient(160deg,#0d0020 0%,#12001a 30%,#080010 60%,var(--bg) 100%);
+  border-bottom:1px solid #2a0a3a;
+  padding:36px 40px 28px;
+  position:relative;overflow:hidden;
+}
+.header::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(120,0,180,0.08) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 30%, rgba(180,0,80,0.06) 0%, transparent 50%);
+  pointer-events:none;
+}
+.header-eyebrow{font-size:10px;letter-spacing:6px;color:#6b21a8;text-transform:uppercase;margin-bottom:10px;font-family:'Source Serif 4',serif}
+.header h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,5vw,52px);
+  font-weight:900;line-height:1.05;
+  color:#fff;margin-bottom:8px;
+  letter-spacing:-1px;
+}
+.header h1 em{color:#c026d3;font-style:normal}
+.header-sub{color:var(--text3);font-size:13px;max-width:680px;line-height:1.7;margin-bottom:20px;font-weight:300}
+.status-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.status-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(21,128,61,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:20px;padding:4px 14px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green2);box-shadow:0 0 6px var(--green2);display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.status-pill span{color:var(--green2);font-size:11px;letter-spacing:.5px}
+.region-pills{display:flex;gap:8px;flex-wrap:wrap}
+.rpill{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:12px;padding:4px 12px;font-size:11px;color:var(--text3)}
+.kpi-row{display:flex;gap:12px;flex-wrap:wrap}
+.kpi{background:rgba(255,255,255,0.03);border:1px solid;border-radius:8px;padding:14px 18px;flex:1 1 135px;transition:border-color .2s}
+.kpi:hover{border-color:rgba(255,255,255,0.2)}
+.kv{font-size:clamp(18px,2.5vw,26px);font-weight:700;font-family:'Playfair Display',serif;letter-spacing:-0.5px}
+.kl{font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+.ks{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* TABS */
+.tabs{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 40px;display:flex;overflow-x:auto;gap:2px}
+.tab{background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;padding:13px 18px;font-family:'Source Serif 4',serif;font-size:12px;white-space:nowrap;color:var(--text3);letter-spacing:.3px;transition:all .2s}
+.tab:hover{color:var(--red2)}
+.tab.active{color:var(--red2);border-bottom-color:var(--red2);font-weight:600}
+
+/* CONTENT */
+.content{padding:32px 40px;max-width:1500px;margin:0 auto}
+.sec-title{font-family:'Playfair Display',serif;color:var(--red2);font-size:22px;margin-bottom:6px;letter-spacing:-0.5px}
+.sec-sub{color:var(--text3);font-size:13px;margin-bottom:24px;line-height:1.6;max-width:800px}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:22px}
+.card-title{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+/* BAR CHARTS */
+.bchart{display:flex;flex-direction:column;gap:9px}
+.brow{display:flex;align-items:center;gap:10px}
+.blbl{width:155px;text-align:right;color:var(--text2);flex-shrink:0;font-size:11px}
+.btrack{flex:1;background:rgba(255,255,255,0.05);border-radius:3px;height:20px;overflow:hidden}
+.bfill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:10px;color:rgba(255,255,255,0.9);font-weight:600;white-space:nowrap;transition:width 1s ease}
+.bval{width:65px;color:var(--text3);font-size:10px;flex-shrink:0}
+
+/* TABLES */
+table{border-collapse:collapse;width:100%;font-size:12px}
+th{padding:9px 13px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--red2);background:#0d0020;border-bottom:1px solid #2a0a3a;white-space:nowrap;font-family:'Source Serif 4',serif}
+td{padding:8px 13px;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.tw{overflow-x:auto}
+
+/* SORT/FILTER BUTTONS */
+.sbtn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:11px;margin-right:5px;transition:all .2s}
+.sbtn.on,.sbtn:hover{background:#3b0764;border-color:var(--purple2);color:var(--purple2)}
+.fbtn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 13px;border-radius:4px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:11px;margin-right:5px}
+.fbtn.on{background:#1e1b4b;border-color:var(--blue2);color:#93c5fd}
+
+/* COUNTRY CARDS */
+.cc{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
+.cc:hover{border-color:rgba(192,38,211,0.3)}
+.cc-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px}
+.cc-body{background:rgba(0,0,0,0.3);border-top:1px solid var(--border);padding:18px 20px;font-size:12px;line-height:1.7;color:var(--text2);display:none}
+.cc-body.open{display:block}
+.cc-hint{background:rgba(0,0,0,0.2);padding:4px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);letter-spacing:1px}
+.badge{display:inline-block;padding:2px 9px;border-radius:3px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-right:5px}
+.flag{font-size:22px;margin-right:8px}
+
+/* RATE INDICATOR */
+.rate-bar{height:6px;border-radius:3px;background:linear-gradient(to right,#15803d,#d97706,#dc2626);position:relative;margin-top:4px}
+.rate-marker{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #dc2626;transform:translateX(-50%)}
+
+/* REGION SECTIONS */
+.region-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.region-header h3{font-family:'Playfair Display',serif;color:var(--text2);font-size:17px}
+.region-count{background:rgba(255,255,255,0.06);border:1px solid var(--border2);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--text3)}
+
+/* NEWS */
+.news-card{background:rgba(0,0,0,0.3);border-radius:6px;padding:14px;border-left:3px solid}
+.news-date{font-size:10px;color:var(--text3);margin-bottom:3px;letter-spacing:.5px}
+.news-head{font-weight:600;color:#fed7aa;font-size:13px;margin-bottom:5px;font-family:'Playfair Display',serif}
+.news-body{color:#78716c;font-size:11px;line-height:1.6}
+
+/* SOURCES */
+.src-row{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+
+/* HIGHLIGHT NUMBERS */
+.hl-red{color:var(--red2);font-weight:700}
+.hl-gold{color:var(--gold2);font-weight:700}
+.hl-green{color:var(--green2);font-weight:700}
+.hl-blue{color:var(--blue2);font-weight:700}
+
+/* FOOTER */
+.footer{margin-top:48px;border-top:1px solid var(--border);padding-top:18px;color:var(--text3);font-size:11px;line-height:1.8}
+
+@media(max-width:900px){
+  .header{padding:24px 20px 20px}
+  .content{padding:20px}
+  .grid2,.grid3{grid-template-columns:1fr!important}
+  .tabs{padding:0 20px}
+  .blbl{width:90px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATA — EDIT THIS SECTION TO UPDATE. Each country has:
+//   pop: prison population, rate: per 100K, fac: facilities,
+//   budget: USD billions/yr (approx), agency: name of admin body,
+//   oversight: legislative/oversight body, note: key context
+// ═══════════════════════════════════════════════════════════════
+var COUNTRIES = {
+  northAmerica: [
+    {
+      name:"United States", flag:"🇺🇸", pop:1980000, rate:614, fac:6297, budget:126.7,
+      region:"North America", color:"#dc2626",
+      agency:"Federal BOP (DOJ) + 50 State DOCs + ICE/DHS",
+      oversight:"Senate & House Appropriations (CJS + Homeland Security); Senate & House Judiciary",
+      recent:"OBBBA (P.L.119-21, July 2025) added $45B for ICE detention centers + $29.9B for operations. ICE detention hit record 68,000+ in Dec 2025. Federal Prison Oversight Act (2024) mandates annual DOJ IG inspections of all federal facilities.",
+      types:"Federal prisons (98), state prisons (1,566), local jails (3,116), ICE detention (133), juvenile (1,277), tribal jails (80)",
+      sources:"BJS, BOP, ICE, PPI"
+    },
+    {
+      name:"Canada", flag:"🇨🇦", pop:40000, rate:88, fac:133, budget:3.2,
+      region:"North America", color:"#dc2626",
+      agency:"Correctional Service Canada (CSC) — federal; Provincial Ministries of Solicitor General",
+      oversight:"House of Commons Standing Committee on Public Safety and National Security; Senate Standing Committee on Legal and Constitutional Affairs; Office of the Correctional Investigator (independent ombudsman)",
+      recent:"CSC manages ~14,000 federal inmates across 43 institutions + ~9,000 on community supervision. Annual federal cost ~C$3B. Budget 2023 reduced CSC spending by $85.5M ongoing from 2026-27. Chronic overrepresentation of Indigenous people (32% of population, 5% of Canadians).",
+      types:"Federal penitentiaries (43), provincial jails (90+), youth custody, immigration detention centres (7)",
+      sources:"CSC Departmental Results Report 2024-25, OCI Annual Report 2024-25"
+    },
+    {
+      name:"Mexico", flag:"🇲🇽", pop:235000, rate:174, fac:261, budget:1.8,
+      region:"North America", color:"#dc2626",
+      agency:"Órgano Administrativo Desconcentrado Prevención y Readaptación Social (OADPRS) — federal; State authorities for state prisons",
+      oversight:"Cámara de Diputados — Comisión de Seguridad Ciudadana; Senado — Comisión de Justicia; Secretaría de Seguridad y Protección Ciudadana (SSPC)",
+      recent:"~65% of Mexican prisons reportedly controlled by criminal organizations (Prison Insider). 16 federal CEFERESO facilities house cartel leaders. Multiple high-profile cartel extraditions to U.S. in 2025 (El Chapo affiliates, Z-40). Sheinbaum administration (2024–) pursuing judicial reform.",
+      types:"Federal CEFERESOs (16 max-security), state prisons (245+), municipal jails, military detention",
+      sources:"OADPRS, Prison Insider 2024, World Prison Brief"
+    }
+  ],
+  centralAmerica: [
+    {
+      name:"El Salvador", flag:"🇸🇻", pop:110000, rate:1659, fac:25, budget:0.4,
+      region:"Central America", color:"#7c3aed",
+      agency:"Ministerio de Justicia y Seguridad Pública (Minister Gustavo Villatoro)",
+      oversight:"Asamblea Legislativa — Comisión de Seguridad Pública (controlled by Bukele's Nuevas Ideas supermajority); independent oversight effectively suspended under state of exception",
+      recent:"State of exception declared March 27, 2022 — renewed monthly ever since. 110,000+ imprisoned; ~2% of population behind bars — highest rate on Earth. CECOT mega-prison (capacity 40,000) opened 2023; Bukele plans to double to 80,000. U.S. deported ~300 Venezuelans to CECOT in March 2025 under Alien Enemies Act — paid El Salvador $6M/yr. 427+ deaths in custody since 2022. IACOMHR: torture is systematic state policy.",
+      types:"CECOT supermax (40,000 cap), Izalco, Mariona (La Esperanza), Zacatecoluca, 21 other facilities",
+      sources:"WOLA, Cristosal, HRW, Cambridge Latin American Research Review 2025"
+    },
+    {
+      name:"Guatemala", flag:"🇬🇹", pop:27000, rate:123, fac:22, budget:0.15,
+      region:"Central America", color:"#7c3aed",
+      agency:"Sistema Penitenciario (SP) — under Ministerio de Gobernación",
+      oversight:"Congreso — Comisión de Gobernación; Human Rights Ombudsman (PDH)",
+      recent:"Chronic overcrowding at 300%+ in some facilities. Preventivo de la Zona 18 (Guatemala City) among most overcrowded in region. Anti-corruption judge Erika Aifán fled country 2022 under threat. Arévalo administration (2024–) pursuing reform amid resistance from entrenched elites.",
+      types:"Preventivos (pretrial, 13), centros de condena (sentenced, 9)",
+      sources:"World Prison Brief 2024, PDH Guatemala"
+    },
+    {
+      name:"Honduras", flag:"🇭🇳", pop:21000, rate:191, fac:26, budget:0.1,
+      region:"Central America", color:"#7c3aed",
+      agency:"Instituto Nacional Penitenciario (INP)",
+      oversight:"Congreso Nacional — Comisión de Seguridad; Comisionado Nacional de Derechos Humanos (CONADEH)",
+      recent:"Military took control of prisons Jan 2019. Deadly gang riots remain frequent — 46 killed in Tamara 2019. Xiomara Castro administration declared prison emergency 2022. Gang control (MS-13, Barrio 18) remains significant inside facilities. Operating at ~210% capacity.",
+      types:"National penitentiaries (5), regional centers (16), local jails (5)",
+      sources:"World Prison Brief 2024, HRW, CONADEH"
+    },
+    {
+      name:"Nicaragua", flag:"🇳🇮", pop:21000, rate:332, fac:9, budget:0.09,
+      region:"Central America", color:"#7c3aed",
+      agency:"Sistema Penitenciario Nacional — under Ministerio de Gobernación (Ortega government)",
+      oversight:"Asamblea Nacional (controlled by Ortega's FSLN); independent oversight effectively nonexistent",
+      recent:"Ortega regime imprisoned 200+ political opponents 2021-22, including bishops and priests. Jan 2023: 222 political prisoners stripped of citizenship and expelled to U.S. in exchange for frozen assets. Continued detention of critics, journalists, and clerics throughout 2024-25. Bishops imprisoned. IACHR denied access.",
+      types:"La Modelo (Managua), La Esperanza (women), El Chipote (political prisoners), 6 regional",
+      sources:"HRW, Amnesty International, IACHR 2024-25"
+    },
+    {
+      name:"Costa Rica", flag:"🇨🇷", pop:18090, rate:345, fac:26, budget:0.22,
+      region:"Central America", color:"#7c3aed",
+      agency:"Dirección General de Adaptación Social (DGAS) — under Ministerio de Justicia y Paz",
+      oversight:"Asamblea Legislativa — Comisión de Asuntos Jurídicos; Defensoría de los Habitantes (Ombudsman); Sala IV (Constitutional Court) active oversight",
+      recent:"One of the highest incarceration rates in Latin America despite being a democracy with no military. Drug trafficking convictions driving population growth. Sala IV issued multiple rulings on prison conditions. La Reforma (San Rafael) holds ~5,000 at 300% capacity.",
+      types:"La Reforma (main facility), Centro de Atención Institucional (24 facilities), 1 open-air facility",
+      sources:"World Prison Brief 2024, Defensoría de los Habitantes"
+    },
+    {
+      name:"Panama", flag:"🇵🇦", pop:23798, rate:522, fac:20, budget:0.18,
+      region:"Central America", color:"#7c3aed",
+      agency:"Sistema Penitenciario Nacional — under Ministerio de Seguridad Pública",
+      oversight:"Asamblea Nacional — Comisión de Gobierno, Justicia y Asuntos Constitucionales; Defensoría del Pueblo",
+      recent:"5th highest incarceration rate in the western hemisphere. La Joya and La Joyita (combined ~15,000 inmates) among most overcrowded in region. New Mulatos prison opened 2022. Mulino administration (2024–) facing prison crisis. Gang violence inside facilities. 65%+ pretrial.",
+      types:"La Joya/La Joyita complex, Mulatos, Nueva Esperanza, 17 smaller facilities",
+      sources:"World Prison Brief 2024, Defensoría del Pueblo Panama"
+    },
+    {
+      name:"Belize", flag:"🇧🇿", pop:1339, rate:312, fac:3, budget:0.02,
+      region:"Central America", color:"#7c3aed",
+      agency:"Belize Central Prison (privately operated by Kolbe Foundation since 1993)",
+      oversight:"National Assembly — Standing Committee on Foreign Affairs, National Security & Police",
+      recent:"Unique in the hemisphere: only privately operated national prison system (since 1993). Kolbe Foundation (Catholic NGO) model cited as rehabilitation success. Lower recidivism than regional peers. Only main facility: Hattieville Prison.",
+      types:"Hattieville Prison (main), Belize Central Prison, 2 remand centers",
+      sources:"World Prison Brief 2024, Kolbe Foundation"
+    }
+  ],
+  caribbean: [
+    {
+      name:"Cuba", flag:"🇨🇺", pop:90000, rate:794, fac:200, budget:0.5,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Ministerio del Interior (MININT) — Dirección de Establecimientos Penitenciarios",
+      oversight:"Asamblea Nacional del Poder Popular (no independent oversight); no international prison monitoring access granted",
+      recent:"2nd highest incarceration rate in western hemisphere (794/100K). Thousands of political prisoners detained after July 2023 protests. March 2021 protesters still imprisoned. No independent oversight permitted. International observers denied systematic access. Combination of political prisoners, dissidents, LGBTQ+ individuals, and common criminals.",
+      types:"Presidios (high-security), cárceles (medium), granjas penitenciarias (farms), preventivos. ~200 facilities total.",
+      sources:"Amnesty International, HRW, World Prison Brief 2020 est."
+    },
+    {
+      name:"Dominican Republic", flag:"🇩🇴", pop:26000, rate:235, fac:35, budget:0.2,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Dirección General de Prisiones (DGP) — under Procuraduría General",
+      oversight:"Congreso — Comisión Permanente de Interior y Policía; Defensoría del Pueblo",
+      recent:"New prison model (Nuevo Modelo de Gestión Penitenciaria) introduced 2003, expanded to ~17 facilities by 2024, showing lower recidivism. Old overcrowded facilities remain. ~65% pretrial. Violence and gang presence in traditional facilities.",
+      types:"New model facilities (17), traditional prisons (18+), preventivos",
+      sources:"World Prison Brief 2024, DGP Dominican Republic"
+    },
+    {
+      name:"Haiti", flag:"🇭🇹", pop:11500, rate:99, fac:18, budget:0.03,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Direction de l'Administration Pénitentiaire (DAP) — under Ministère de la Justice",
+      oversight:"Parlement dissolved 2020; BINUH (UN mission) monitors; OAS, IACHR",
+      recent:"Catastrophic system collapse: gang takeover of Port-au-Prince regions left prisons inaccessible. National Penitentiary overrun by gang attack March 2024 — 4,000+ prisoners escaped. Penitentiary National reported 85%+ pretrial. Acute malnutrition and disease documented by ICRC. Kenny Haiti acting PM context.",
+      types:"Pénitencier National (Port-au-Prince), 17 departmental prisons",
+      sources:"ICRC, HRW, World Prison Brief 2024, UN BINUH"
+    },
+    {
+      name:"Jamaica", flag:"🇯🇲", pop:3600, rate:125, fac:10, budget:0.08,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Department of Correctional Services (DCS) — under Ministry of National Security",
+      oversight:"Parliament — Standing Committee on National Security; Independent Commission of Investigations (INDECOM)",
+      recent:"Tower Street Adult Correctional Centre (GP) main facility, built 1845, severely overcrowded. States of Emergency declared in multiple parishes 2022-23 targeting gang violence. DCS reform program includes vocational training.",
+      types:"Tower Street, Fort Augusta (women), 8 remand centers",
+      sources:"World Prison Brief 2024, DCS Jamaica"
+    },
+    {
+      name:"Trinidad & Tobago", flag:"🇹🇹", pop:3802, rate:276, fac:6, budget:0.09,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Trinidad and Tobago Prison Service (TTPS) — under Ministry of National Security",
+      oversight:"Parliament — Joint Select Committee on National Security; Prison Visiting Committees",
+      recent:"Port of Spain (Royal Gaol) and Remand Yard severely overcrowded at 250%+. Gang control of yards documented. SoE declared Sept 2022 targeted gang violence. High murder rate context (36/100K). New prison construction ongoing.",
+      types:"Royal Gaol, Remand Yard, Women's Prison (Femmes), Carrera Convict Prison (island), YTC",
+      sources:"World Prison Brief 2021, TTPS"
+    },
+    {
+      name:"Bahamas", flag:"🇧🇸", pop:1912, rate:482, fac:3, budget:0.05,
+      region:"Caribbean", color:"#ea580c",
+      agency:"Bahamas Department of Correctional Services (BDCS)",
+      oversight:"Parliament — Standing Committee on Judiciary and Legal Affairs",
+      recent:"Fox Hill Prison severely overcrowded; death row and remand together. ~60% pretrial. Inter-American Commission on Human Rights cited conditions as cruel and degrading. New prison construction announced 2022.",
+      types:"Fox Hill Prison (Nassau), HM Prison Bahamas, Remand Centre",
+      sources:"World Prison Brief 2021, IACHR"
+    }
+  ],
+  southAmerica: [
+    {
+      name:"Brazil", flag:"🇧🇷", pop:910000, rate:408, fac:1387, budget:5.8,
+      region:"South America", color:"#16a34a",
+      agency:"Secretaria Nacional de Políticas Penais (SENAPPEN) — federal coordination; State Secretarias de Administração Penitenciária (SAPs)",
+      oversight:"Congresso: Comissão de Segurança Pública (Câmara); Comissão de Constituição e Justiça (Senado); Conselho Nacional de Justiça (CNJ); CNPCP (National Penitentiary Council)",
+      recent:"3rd largest prison population in world (after USA and China). 1,387 prisons at 174% capacity; deficit of 400,000 spaces. R$10B+ spent in H1 2025 alone. 70+ criminal factions operate inside (PCC, CV dominating). Riots and massacres ongoing in northern states. Federal Supreme Court mandating conditions reforms.",
+      types:"Federal penitentiaries (5), state prisons (1,284 state-operated, 43 privately run, 34 co-managed), police lockups",
+      sources:"SENAPPEN RELIPEN 2024, Agência Brasil Oct 2024"
+    },
+    {
+      name:"Colombia", flag:"🇨🇴", pop:104000, rate:198, fac:133, budget:0.9,
+      region:"South America", color:"#16a34a",
+      agency:"Instituto Nacional Penitenciario y Carcelario (INPEC); Unidad de Servicios Penitenciarios y Carcelarios (USPEC) for infrastructure",
+      oversight:"Congreso: Comisión Primera (Senado/Cámara — constitutional affairs); Defensoría del Pueblo; Procuraduría General; Corte Constitucional (T-153 ruling declared unconstitutional state of prisons 1998, still unresolved)",
+      recent:"Prison emergency declared Feb 2024. 25% overcrowding (down from 56% peak). Understaffed by 16,000+ guards (ICRC). USPEC building 9 facility expansions. Post-2016 peace accord increased incarceration of demobilized combatants. 127 prison facilities across 6 regional directorates.",
+      types:"Establecimientos de Reclusión del Orden Nacional (ERON, 126); penitentiary complexes (5); penal colony (1); departmental jails (2,946)",
+      sources:"ICRC Colombia Report 2024, INPEC, Defensoría del Pueblo"
+    },
+    {
+      name:"Venezuela", flag:"🇻🇪", pop:110000, rate:199, fac:42, budget:0.2,
+      region:"South America", color:"#16a34a",
+      agency:"Ministerio del Servicio Penitenciario (MINSEP) — Maduro government",
+      oversight:"Asamblea Nacional (pro-government since 2020 fraud); independent oversight absent; IACHR denied access; Provea (NGO) monitors",
+      recent:"Catastrophic conditions. Gang control ('pranes') effectively govern inside major facilities. Tocoron prison seized by military Sept 2023 after being run by criminal gang for years. Political prisoners: 280+ documented by Foro Penal as of 2025, including opposition figures detained after July 2024 election. GDP collapse reduced all government services including prisons.",
+      types:"Internados judiciales (pretrial), penitenciarias (sentenced), centros de procesados",
+      sources:"Provea, Foro Penal, IACHR, HRW 2024"
+    },
+    {
+      name:"Peru", flag:"🇵🇪", pop:98127, rate:286, fac:69, budget:0.55,
+      region:"South America", color:"#16a34a",
+      agency:"Instituto Nacional Penitenciario (INPE) — under Ministerio de Justicia",
+      oversight:"Congreso — Comisión de Justicia y Derechos Humanos; Defensoría del Pueblo; Tribunal Constitucional",
+      recent:"Operating at 238% official capacity. Political instability: 6 presidents since 2016 — multiple imprisoned or facing charges (Fujimori, Kuczynski, Castillo). Former president Pedro Castillo detained since 2022 coup attempt. Sendero Luminoso remnants (VRAEM) among inmates. Boluarte administration (2023–) facing corruption allegations.",
+      types:"Establecimientos penitenciarios (69): penal colony (Sepa), special prisons (Piedras Gordas I & II), women's facilities",
+      sources:"INPE Informe Estadístico 2024, World Prison Brief"
+    },
+    {
+      name:"Argentina", flag:"🇦🇷", pop:97000, rate:268, fac:320, budget:1.1,
+      region:"South America", color:"#16a34a",
+      agency:"Servicio Penitenciario Federal (SPF) — federal; 24 provincial penitentiary services",
+      oversight:"Congreso: Comisión de Legislación Penal (Diputados); Comisión de Justicia (Senado); Procuración Penitenciaria de la Nación (independent ombudsman — PPN)",
+      recent:"Milei government (2024–) pursuing major justice reforms including decarceration measures as part of libertarian agenda. Kirchner-era corruption cases filling federal prisons. SPF operates 35 federal units; provinces control rest. Human rights groups cite overcrowding and torture in provincial facilities (especially Buenos Aires province — 50%+ of all inmates).",
+      types:"Unidades del SPF (35 federal), 285+ provincial units across 24 provinces",
+      sources:"SPF Informe 2024, PPN Annual Report, World Prison Brief"
+    },
+    {
+      name:"Chile", flag:"🇨🇱", pop:59185, rate:311, fac:84, budget:0.7,
+      region:"South America", color:"#16a34a",
+      agency:"Gendarmería de Chile (armed corrections force) — under Ministerio de Justicia y Derechos Humanos",
+      oversight:"Congreso: Comisión de Constitución, Legislación y Justicia (Senado/Cámara); Instituto Nacional de Derechos Humanos (INDH — independent monitor)",
+      recent:"Operating at 122% capacity, better than regional peers. Post-pandemic reforms reduced overcrowding. High-profile organized crime trial (Caso Audio) 2024 involving former officials. Boric government (2022–) pursuing criminal justice reform. Gendarmería has 16,000+ staff. Rising Venezuelan gang infiltration (Tren de Aragua) driving up incarceration.",
+      types:"CPP (Centros de Preventivos), CDP (Centros de Detención Preventiva), CCP (Centros de Cumplimiento Penitenciario), CRS (Centros de Reinserción Social)",
+      sources:"Gendarmería de Chile Estadísticas 2024, INDH"
+    },
+    {
+      name:"Ecuador", flag:"🇪🇨", pop:30000, rate:167, fac:36, budget:0.35,
+      region:"South America", color:"#16a34a",
+      agency:"Servicio Nacional de Atención Integral a Personas Adultas Privadas de la Libertad (SNAI)",
+      oversight:"Asamblea Nacional — Comisión de Justicia y Estructura del Estado; Defensoría del Pueblo",
+      recent:"Prison massacre crisis: 316+ inmates killed in 2021-22 riots (Litoral Penitentiary most affected). State of emergency declared in prisons Feb 2024. Noboa government declared 'internal armed conflict' Jan 2024 after gang assassinated presidential candidate. Military deployed inside prisons. Leader 'Fito' escaped from maximum-security Guayas 1 in Jan 2024.",
+      types:"Centro de Rehabilitación Social (CRS) del Litoral (Guayaquil, largest), Centro de Detención Provisional (CDP), 34 others",
+      sources:"SNAI, IACHR Ecuador Report 2024, HRW"
+    },
+    {
+      name:"Bolivia", flag:"🇧🇴", pop:31105, rate:252, fac:56, budget:0.18,
+      region:"South America", color:"#16a34a",
+      agency:"Dirección General de Régimen Penitenciario (DGRP) — under Ministerio de Gobierno",
+      oversight:"Asamblea Legislativa — Comisión de Constitución, Justicia y Policía Judicial; Defensoría del Pueblo",
+      recent:"~70% pretrial (among highest in region). San Pedro prison (La Paz) famous for internal self-governance: inmates rent cells, families live inside, internal market. Palmasola (Santa Cruz) repeatedly site of deadly riots. Arc government (2024–) during political crisis. Poor conditions documented by IACHR.",
+      types:"Penitenciaria Nacional de San Pedro, Palmasola (Santa Cruz), 54 departmental facilities",
+      sources:"World Prison Brief 2024, Defensoría Bolivia, IACHR"
+    },
+    {
+      name:"Uruguay", flag:"🇺🇾", pop:15767, rate:449, fac:30, budget:0.25,
+      region:"South America", color:"#16a34a",
+      agency:"Instituto Nacional de Rehabilitación (INR) — under Ministerio del Interior",
+      oversight:"Parlamento — Comisión de Constitución y Legislación; Comisionado Parlamentario Penitenciario (independent monitor)",
+      recent:"High incarceration rate despite being a democracy with good governance. Orsi government (2025–) pursuing reform. Comisionado Parlamentario issues annual critical reports. Construction of new 2,960-person facility 2023. Rising drug trafficking convictions driving growth. 4th highest rate in South America.",
+      types:"Complejo Penitenciario Santiago Vázquez, Punta de Rieles, Comcar, 27 others",
+      sources:"INR, Comisionado Parlamentario 2024, World Prison Brief"
+    },
+    {
+      name:"Paraguay", flag:"🇵🇾", pop:18000, rate:233, fac:17, budget:0.12,
+      region:"South America", color:"#16a34a",
+      agency:"Ministerio de Justicia — Dirección General de Establecimientos Penitenciarios y Ejecución Penal",
+      oversight:"Congreso — Comisión de Justicia (Cámara/Senado); Defensoría del Pueblo; CIPAE (NGO)",
+      recent:"Tacumbú National Penitentiary (Asunción, ~5,000 capacity) operating at 250%+. Criminal organization PCC (Brazil) and local criminal networks control sections of prisons. Drug trafficking through Paraguay (hashish, cocaine) driving incarceration. Santiago Peña government (2023–) pursuing prison reform.",
+      types:"Tacumbú (Asunción), Emboscada, Pedro Juan Caballero, 14 regional",
+      sources:"World Prison Brief 2023, Defensoría Paraguay, CIDH"
+    },
+    {
+      name:"Guyana", flag:"🇬🇾", pop:2300, rate:288, fac:8, budget:0.04,
+      region:"South America", color:"#16a34a",
+      agency:"Guyana Prison Service (GPS) — under Ministry of Home Affairs",
+      oversight:"National Assembly — Standing Committee on Home Affairs; Ombudsman",
+      recent:"Georgetown Prison (Camp Street) fire 2016 killed 17; rebuilt. Campbellville facility opened 2022. Overcrowding at 200%+ in main facilities. Oil boom (since 2019) hasn't yet improved prison conditions. Drug trafficking courts driving numbers up.",
+      types:"Georgetown Prison, New Amsterdam Prison, Timehri (women), 5 regional",
+      sources:"World Prison Brief 2024, GPS"
+    },
+    {
+      name:"Suriname", flag:"🇸🇷", pop:2800, rate:185, fac:5, budget:0.03,
+      region:"South America", color:"#16a34a",
+      agency:"Dienst Gevangeniswezen Suriname (Prison Service) — under Ministerie van Justitie en Politie",
+      oversight:"De Nationale Assemblee; Ombudsman",
+      recent:"Santo Boma prison (Paramaribo) is main facility; chronic overcrowding. Former dictator Desi Bouterse died in prison 2024 while serving 20-year murder sentence. Cocaine transit hub location drives drug trafficking convictions.",
+      types:"Santo Boma, Hazard (women), 3 regional facilities",
+      sources:"World Prison Brief est. 2014, regional reports"
+    }
+  ]
+};
+
+// Breaking news across the hemisphere
+var NEWS = [
+  {date:"Jan 2024", headline:"Ecuador Crisis: Gang Leader 'Fito' Escapes Maximum Security", body:"José Adolfo Macías ('Fito') escaped Guayas 1 prison Jan 2024. Noboa declared internal armed conflict. Military deployed inside all prisons. 316+ already killed in 2021-22 prison riots.", color:"#f97316"},
+  {date:"March 2025", headline:"U.S. Deports 300+ to El Salvador's CECOT Under Alien Enemies Act", body:"Trump administration paid Bukele $6M/yr to hold Venezuelan deportees. Several had no criminal record. Supreme Court blocked order but flights proceeded. Kilmar Ábrego García case reached SCOTUS.", color:"#dc2626"},
+  {date:"Sept 2023", headline:"Venezuela: Military Recaptures Tocoron Prison from Criminal Gang", body:"'Pran' gang leader Héctor Guerrero ('Niño Guerrero') ran Tocoron as a criminal empire for years — hotel, pool, zoo inside. Maduro government seized it after years of ceding control.", color:"#d97706"},
+  {date:"2024-2025", headline:"Regional Trend: 'Mano Dura' Policies Spreading from El Salvador", body:"Multiple governments (Ecuador, Honduras, Chile) adopting military-in-prisons model. Bukele's popularity (85% approval) making punitive model appealing to regional politicians despite human rights concerns.", color:"#7c3aed"},
+  {date:"Oct 2024", headline:"Brazil: $10B+ Spent on Prison System in H1 2025 Alone", body:"909,000 inmates in facilities built for 494,000. 70+ criminal factions operate inside. PCC and Comando Vermelho rival networks expanding internationally. Federal Court demands conditions reform.", color:"#16a34a"}
+];
+
+// Hemisphere-wide stats
+var HEMI = {
+  total_countries: 35,
+  total_pop: 2850000,
+  total_fac: 10000,
+  highest_rate_country: "El Salvador",
+  highest_rate: 1659,
+  lowest_rate_country: "Canada",
+  lowest_rate: 88,
+  us_pct_of_hemisphere: 69,
+  data_as_of: "February 2026",
+  last_updated: "2026-02-01"
+};
+// ═══════════════════════════════════════════════════════════════
+// END DATA
+// ═══════════════════════════════════════════════════════════════
+
+var activeTab = 'overview';
+var cFilter = 'ALL';
+var cSort = 'rate';
+
+function fmt(n){if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(0)+'K';return n?n.toLocaleString():'N/A';}
+function badge(text,color){return '<span class="badge" style="background:'+color+'18;color:'+color+';border:1px solid '+color+'40">'+text+'</span>';}
+
+function kpi(label,val,sub,accent){
+  return '<div class="kpi" style="border-color:'+accent+'30"><div class="kv" style="color:'+accent+'">'+val+'</div><div class="kl">'+label+'</div>'+(sub?'<div class="ks">'+sub+'</div>':'')+'</div>';
+}
+function bar(label,val,max,color,display){
+  var pct=Math.min(Math.round(val/max*100),100);
+  return '<div class="brow"><div class="blbl">'+label+'</div><div class="btrack"><div class="bfill" style="width:'+pct+'%;background:'+color+'">'+display+'</div></div><div class="bval">'+display+'</div></div>';
+}
+
+function allCountries(){
+  return [].concat(COUNTRIES.northAmerica, COUNTRIES.centralAmerica, COUNTRIES.caribbean, COUNTRIES.southAmerica);
+}
+
+function renderOverview(){
+  var all = allCountries();
+  var top10rate = all.slice().sort(function(a,b){return b.rate-a.rate;}).slice(0,10);
+  var top8pop = all.slice().sort(function(a,b){return b.pop-a.pop;}).slice(0,8);
+  var maxRate = top10rate[0].rate;
+  var maxPop = top8pop[0].pop;
+
+  var rateColors = ['#dc2626','#dc2626','#ea580c','#d97706','#d97706','#ca8a04','#16a34a','#16a34a','#0891b2','#0891b2'];
+
+  return '<h2 class="sec-title">Hemisphere Overview</h2>'
+  +'<p class="sec-sub">The western hemisphere incarcerates approximately 2.85 million people across 35 countries — with staggering variation between El Salvador (1,659/100K) and Canada (88/100K). The U.S. alone accounts for ~69% of hemispheric prison population.</p>'
+  +'<div class="card" style="border-left:3px solid #dc2626;margin-bottom:20px">'
+  +'<div class="card-title">Recent Developments</div>'
+  +'<div class="grid3">'+NEWS.map(function(n){return '<div class="news-card" style="border-left-color:'+n.color+'"><div class="news-date">'+n.date+'</div><div class="news-head">'+n.headline+'</div><div class="news-body">'+n.body+'</div></div>';}).join('')+'</div></div>'
+  +'<div class="grid2">'
+  +'<div class="card"><div class="card-title">Highest Incarceration Rates — Top 10 Countries</div><div class="bchart">'+top10rate.map(function(c,i){return bar(c.flag+' '+c.name,c.rate,maxRate,rateColors[i]||'#555',c.rate+'/100K');}).join('')+'</div></div>'
+  +'<div class="card"><div class="card-title">Largest Prison Populations</div><div class="bchart">'+top8pop.map(function(c){return bar(c.flag+' '+c.name,c.pop,maxPop,c.color,fmt(c.pop));}).join('')+'</div></div>'
+  +'</div>'
+  +'<div class="card"><div class="card-title">All Countries — Incarceration Rate (per 100K) — Sorted High to Low</div><div class="bchart">'+all.slice().sort(function(a,b){return b.rate-a.rate;}).map(function(c){var col=c.rate>800?'#dc2626':c.rate>400?'#f97316':c.rate>200?'#d97706':c.rate>100?'#16a34a':'#0891b2';return bar(c.flag+' '+c.name,c.rate,1700,col,c.rate+'/100K');}).join('')+'</div></div>';
+}
+
+function renderCountries(){
+  var regions = [
+    {key:'northAmerica', label:'North America', emoji:'🌎'},
+    {key:'centralAmerica', label:'Central America & Mexico', emoji:'🌿'},
+    {key:'caribbean', label:'Caribbean', emoji:'🌊'},
+    {key:'southAmerica', label:'South America', emoji:'🌿'}
+  ];
+  var filter = cFilter;
+
+  var html = '<h2 class="sec-title">Country Profiles</h2>'
+  +'<p class="sec-sub">Click any country to expand full detail: agency, oversight committees, recent developments, facility types, and data sources.</p>'
+  +'<div style="margin-bottom:20px">'+['ALL','North America','Central America','Caribbean','South America'].map(function(f){return '<button class="fbtn'+(filter===f?' on':'')+'" onclick="cFilter=\''+f+'\';renderTab(\'countries\')">'+f+'</button>';}).join('')+'</div>';
+
+  regions.forEach(function(r){
+    var list = COUNTRIES[r.key];
+    if(filter !== 'ALL' && !r.label.includes(filter) && r.label !== filter) return;
+    // find matching filter
+    var match = filter==='ALL' || r.label===filter || r.label.includes(filter.replace('Central America','Central')) || (filter==='Caribbean'&&r.key==='caribbean') || (filter==='South America'&&r.key==='southAmerica') || (filter==='North America'&&r.key==='northAmerica');
+    if(!match) return;
+
+    html += '<div class="region-header"><h3>'+r.emoji+' '+r.label+'</h3><span class="region-count">'+list.length+' countries</span></div>';
+    list.forEach(function(c,i){
+      var rid = r.key+'-'+i;
+      var rateCol = c.rate>800?'#dc2626':c.rate>400?'#f97316':c.rate>200?'#d97706':c.rate>100?'#16a34a':'#0891b2';
+      html += '<div class="cc" onclick="tog(\''+rid+'\')">'
+        +'<div class="cc-header">'
+        +'<div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
+        +'<span style="font-size:26px">'+c.flag+'</span>'
+        +'<span style="font-family:\'Playfair Display\',serif;font-size:18px;color:#fff;font-weight:700">'+c.name+'</span>'
+        +badge(c.region,c.color)+'</div>'
+        +'<div style="font-size:11px;color:var(--text3)">'+c.agency+'</div></div>'
+        +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+        +'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:'+rateCol+';font-family:\'Playfair Display\',serif">'+c.rate+'</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Rate/100K</div></div>'
+        +'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:#fff;font-family:\'Playfair Display\',serif">'+fmt(c.pop)+'</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Prison Pop.</div></div>'
+        +(c.budget?'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:#fbbf24;font-family:\'Playfair Display\',serif">~$'+c.budget+'B</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Annual Budget</div></div>':'')
+        +'</div></div>'
+        +'<div class="cc-body" id="'+rid+'">'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:14px">'
+        +'<div><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Oversight Bodies</div><div>'+c.oversight+'</div></div>'
+        +'<div><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Facility Types</div><div>'+c.types+'</div></div>'
+        +'</div>'
+        +'<div style="margin-bottom:12px"><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Recent Developments</div><div>'+c.recent+'</div></div>'
+        +'<div style="font-size:10px;color:var(--text3)"><strong style="color:var(--text2)">Sources: </strong>'+c.sources+'</div>'
+        +'</div>'
+        +'<div class="cc-hint">CLICK TO EXPAND ▾</div>'
+        +'</div>';
+    });
+  });
+  return html;
+}
+
+function renderComparison(){
+  var all = allCountries().slice().sort(function(a,b){return b[cSort]-a[cSort];});
+  var labels = {rate:'Incarceration Rate/100K',pop:'Prison Population',budget:'Annual Budget (USD B)',fac:'Facilities'};
+  return '<h2 class="sec-title">Cross-Country Comparison</h2>'
+  +'<p class="sec-sub">Compare all 22 profiled countries across key metrics. Countries are sorted by your selected metric.</p>'
+  +'<div style="margin-bottom:18px"><span style="color:var(--text3);font-size:11px;margin-right:8px">Sort by:</span>'
+  +['rate','pop','budget'].map(function(k){return '<button class="sbtn'+(cSort===k?' on':'')+'" onclick="cSort=\''+k+'\';renderTab(\'compare\')">'+{rate:'Inc. Rate',pop:'Population',budget:'Budget'}[k]+'</button>';}).join('')+'</div>'
+  +'<div class="tw"><table><thead><tr><th>#</th><th>Country</th><th>Region</th><th>Rate/100K</th><th>Prison Pop.</th><th>Facilities</th><th>Budget (USD)</th><th>Admin Agency</th></tr></thead><tbody>'
+  +all.map(function(c,i){
+    var rc=c.rate>800?'var(--red2)':c.rate>400?'#f97316':c.rate>200?'var(--gold2)':c.rate>100?'var(--green2)':'var(--blue2)';
+    return '<tr><td style="color:var(--text3)">'+('0'+(i+1)).slice(-2)+'</td>'
+    +'<td><span style="font-size:16px">'+c.flag+'</span> <strong style="color:#fff">'+c.name+'</strong></td>'
+    +'<td>'+badge(c.region,c.color)+'</td>'
+    +'<td style="color:'+rc+';font-weight:700;font-family:\'Playfair Display\',serif">'+c.rate+'</td>'
+    +'<td style="color:var(--text)">'+fmt(c.pop)+'</td>'
+    +'<td style="color:var(--text2)">'+c.fac+'</td>'
+    +'<td style="color:var(--gold2)">'+('$'+c.budget+'B')+'</td>'
+    +'<td style="color:var(--text3);max-width:200px;font-size:10px">'+c.agency.split(' — ')[0]+'</td>'
+    +'</tr>';
+  }).join('')+'</tbody></table></div>';
+}
+
+function renderSources(){
+  return '<h2 class="sec-title">Data Sources & Monthly Update Guide</h2>'
+  +'<p class="sec-sub">To update data: open this file in a text editor (TextEdit on Mac), find the DATA section at the very top, edit numbers or news items, save, and push to GitHub. Site updates within 2 minutes.</p>'
+  +'<div class="card" style="border-left:3px solid var(--green2);margin-bottom:22px">'
+  +'<div class="card-title" style="color:var(--green2)">How to Update Monthly</div>'
+  +'<div class="grid3">'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">1. Find the data</div><div style="color:var(--text3);font-size:12px;line-height:1.5">Check monthly sources below. For each country, look up population, rate, and any major news.</div></div>'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">2. Edit the file</div><div style="color:var(--text3);font-size:12px;line-height:1.5">GitHub → your repo → index.html → pencil icon → find the COUNTRIES or NEWS section → update.</div></div>'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">3. Commit</div><div style="color:var(--text3);font-size:12px;line-height:1.5">Click Commit changes. Vercel auto-deploys in ~2 minutes. No coding required.</div></div>'
+  +'</div></div>'
+  +[
+    {name:"World Prison Brief",url:"prisonstudies.org",freq:"Quarterly",what:"Most comprehensive cross-country prison population and rate data. Use 'Highest to Lowest' list filtered by Americas."},
+    {name:"Prison Policy Initiative — Global Context",url:"prisonpolicy.org/global/2024.html",freq:"Annual",what:"Best U.S.-comparative analysis. Appendix 2 has all country rates."},
+    {name:"WOLA (Washington Office on Latin America)",url:"wola.org",freq:"Monthly",what:"Best English-language source for Central/South American prison news and reforms."},
+    {name:"Human Rights Watch — Americas",url:"hrw.org/americas",freq:"Monthly",what:"Country-by-country reports on prison conditions, political prisoners, torture."},
+    {name:"IACHR (Inter-American Commission on Human Rights)",url:"oas.org/en/iachr",freq:"Ongoing",what:"Country-specific precautionary measures and reports on detention conditions."},
+    {name:"ICRC — Americas",url:"icrc.org/en/where-we-work/americas",freq:"Annual",what:"Red Cross reports on Colombia, Venezuela, Haiti, and other active-conflict systems."},
+    {name:"Penal Reform International",url:"penalreform.org",freq:"Annual",what:"Global Prison Trends report (May each year) — best annual comprehensive update."},
+    {name:"Insight Crime",url:"insightcrime.org",freq:"Daily",what:"Best source for organized crime's role in regional prison systems."},
+    {name:"Brazil — SENAPPEN",url:"gov.br/senappen",freq:"Semi-annual",what:"Official RELIPEN reports. Released June and December. Brazil-specific data."},
+    {name:"Colombia — INPEC",url:"inpec.gov.co",freq:"Monthly",what:"Monthly statistical bulletins on prison population by facility."},
+    {name:"Canada — CSC Annual Report",url:"canada.ca/en/correctional-service",freq:"Annual",what:"Departmental Results Reports released each fall."}
+  ].map(function(s){
+    return '<div class="src-row"><div><div style="font-weight:600;color:#fff;font-size:13px">'+s.name+'</div><div style="color:var(--blue2);font-size:11px;margin-top:2px">'+s.url+'</div><div style="color:var(--text3);font-size:11px;margin-top:2px">'+s.what+'</div></div>'+badge(s.freq,'#7c3aed')+'</div>';
+  }).join('');
+}
+
+var TABS = [
+  {id:'overview', label:'🌎 Overview'},
+  {id:'countries', label:'🏛 Country Profiles'},
+  {id:'compare', label:'📊 Compare All'},
+  {id:'sources', label:'📚 Sources'}
+];
+
+function tog(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+
+function renderTab(tabId){
+  activeTab=tabId;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tabId);});
+  var fn={overview:renderOverview,countries:renderCountries,compare:renderComparison,sources:renderSources}[tabId]||renderOverview;
+  document.getElementById('tab-content').innerHTML=fn()
+    +'<div class="footer">Data sourced from World Prison Brief, WOLA, HRW, IACHR, ICRC, PPI, national prison agencies. Population and budget figures are approximate — see Sources tab for individual country data provenance. Last updated: '+HEMI.last_updated+'. Next update: 2026-03-01.</div>';
+}
+
+function init(){
+  var h=HEMI;
+  document.getElementById('app').innerHTML=
+    '<div class="header">'
+    +'<div class="header-eyebrow">Comparative Justice Systems · Western Hemisphere · '+h.data_as_of+'</div>'
+    +'<h1>Western Hemisphere<br><em>Prison & Detention Monitor</em></h1>'
+    +'<p class="header-sub">Comparative data on incarceration, budgets, oversight, and recent developments across 35 countries — from Canada to Tierra del Fuego. The region incarcerates approximately 2.85 million people in facilities ranging from democratic reform models to authoritarian mega-prisons.</p>'
+    +'<div class="status-row">'
+    +'<div class="status-pill"><span class="status-dot"></span><span>Data current · Last updated '+h.last_updated+'</span></div>'
+    +'<div class="region-pills"><span class="rpill">🌎 35 Countries</span><span class="rpill">🔴 '+h.highest_rate_country+' '+h.highest_rate+'/100K highest</span><span class="rpill">🟢 '+h.lowest_rate_country+' '+h.lowest_rate+'/100K lowest</span><span class="rpill">🇺🇸 U.S. = '+h.us_pct_of_hemisphere+'% of hemisphere total</span></div>'
+    +'</div>'
+    +'<div class="kpi-row">'
+    +kpi('Countries Covered','35','North + Central + South America + Caribbean','#c026d3')
+    +kpi('Estimated Total Pop.','~2.85M','All profiled countries combined','#dc2626')
+    +kpi('Highest Rate','1,659/100K','El Salvador (2025)','#f97316')
+    +kpi('Lowest Rate','88/100K','Canada (2024)','#22c55e')
+    +kpi('Largest System','~2M','United States — 69% of hemisphere','#3b82f6')
+    +kpi('Fastest Growing','El Salvador','110,000+ since 2022 state of exception','#a78bfa')
+    +'</div></div>'
+    +'<div class="tabs">'+TABS.map(function(t){return '<button class="tab'+(t.id==='overview'?' active':'')+'" data-tab="'+t.id+'" onclick="renderTab(\''+t.id+'\')">'+t.label+'</button>';}).join('')+'</div>'
+    +'<div class="content"><div id="tab-content"></div></div>';
+  renderTab('overview');
+}
+
+document.addEventListener('DOMContentLoaded', function(){init();});
+</script>
+</body>
+</html>
