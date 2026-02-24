@@ -3,622 +3,527 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Western Hemisphere Prison & Detention Dashboard</title>
+<title>Contraband Cell Phones in U.S. Prisons — National Dashboard</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#05050d;--bg2:#0a0a18;--bg3:#0f0f22;
-  --border:#1a1a35;--border2:#252545;
-  --red:#dc2626;--red2:#ef4444;--red3:#fca5a5;
-  --gold:#d97706;--gold2:#fbbf24;
-  --green:#15803d;--green2:#22c55e;
-  --blue:#1d4ed8;--blue2:#3b82f6;
-  --purple:#7c3aed;--purple2:#a78bfa;
-  --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;
-}
-body{background:var(--bg);color:var(--text);font-family:'Source Serif 4',Georgia,serif;min-height:100vh}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-
-/* HEADER */
-.header{
-  background:linear-gradient(160deg,#0d0020 0%,#12001a 30%,#080010 60%,var(--bg) 100%);
-  border-bottom:1px solid #2a0a3a;
-  padding:36px 40px 28px;
-  position:relative;overflow:hidden;
-}
-.header::before{
-  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-  background:radial-gradient(ellipse at 20% 50%, rgba(120,0,180,0.08) 0%, transparent 60%),
-             radial-gradient(ellipse at 80% 30%, rgba(180,0,80,0.06) 0%, transparent 50%);
-  pointer-events:none;
-}
-.header-eyebrow{font-size:10px;letter-spacing:6px;color:#6b21a8;text-transform:uppercase;margin-bottom:10px;font-family:'Source Serif 4',serif}
-.header h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(26px,5vw,52px);
-  font-weight:900;line-height:1.05;
-  color:#fff;margin-bottom:8px;
-  letter-spacing:-1px;
-}
-.header h1 em{color:#c026d3;font-style:normal}
-.header-sub{color:var(--text3);font-size:13px;max-width:680px;line-height:1.7;margin-bottom:20px;font-weight:300}
-.status-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.status-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(21,128,61,0.12);border:1px solid rgba(34,197,94,0.25);border-radius:20px;padding:4px 14px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:var(--green2);box-shadow:0 0 6px var(--green2);display:inline-block;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.status-pill span{color:var(--green2);font-size:11px;letter-spacing:.5px}
-.region-pills{display:flex;gap:8px;flex-wrap:wrap}
-.rpill{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:12px;padding:4px 12px;font-size:11px;color:var(--text3)}
-.kpi-row{display:flex;gap:12px;flex-wrap:wrap}
-.kpi{background:rgba(255,255,255,0.03);border:1px solid;border-radius:8px;padding:14px 18px;flex:1 1 135px;transition:border-color .2s}
-.kpi:hover{border-color:rgba(255,255,255,0.2)}
-.kv{font-size:clamp(18px,2.5vw,26px);font-weight:700;font-family:'Playfair Display',serif;letter-spacing:-0.5px}
-.kl{font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
-.ks{font-size:10px;color:var(--text3);margin-top:2px}
-
-/* TABS */
-.tabs{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 40px;display:flex;overflow-x:auto;gap:2px}
-.tab{background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;padding:13px 18px;font-family:'Source Serif 4',serif;font-size:12px;white-space:nowrap;color:var(--text3);letter-spacing:.3px;transition:all .2s}
-.tab:hover{color:var(--red2)}
-.tab.active{color:var(--red2);border-bottom-color:var(--red2);font-weight:600}
-
-/* CONTENT */
-.content{padding:32px 40px;max-width:1500px;margin:0 auto}
-.sec-title{font-family:'Playfair Display',serif;color:var(--red2);font-size:22px;margin-bottom:6px;letter-spacing:-0.5px}
-.sec-sub{color:var(--text3);font-size:13px;margin-bottom:24px;line-height:1.6;max-width:800px}
-
-/* CARDS */
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:22px}
-.card-title{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--text3);margin-bottom:14px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-
-/* BAR CHARTS */
+body{background:#06060f;color:#e2e8f0;font-family:Georgia,'Times New Roman',serif;min-height:100vh}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0a1a}::-webkit-scrollbar-thumb{background:#2a2a4a;border-radius:3px}
+.hdr{background:linear-gradient(160deg,#001a0a 0%,#00120a 40%,#06060f 100%);border-bottom:2px solid #14532d;padding:32px 36px 24px;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 15% 50%,rgba(0,180,80,0.07) 0%,transparent 60%),radial-gradient(ellipse at 85% 30%,rgba(220,38,38,0.05) 0%,transparent 50%);pointer-events:none}
+.eyebrow{font-size:10px;letter-spacing:5px;color:#15803d;text-transform:uppercase;margin-bottom:8px}
+.hdr h1{font-size:clamp(22px,4vw,44px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:6px;letter-spacing:-1px}
+.hdr h1 em{color:#22c55e;font-style:normal}
+.hdrsub{color:#374151;font-size:13px;max-width:700px;line-height:1.7;margin-bottom:20px}
+.status-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(21,128,61,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:20px;padding:4px 14px;margin-bottom:20px}
+.sdot{width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-pill span{color:#22c55e;font-size:11px}
+.krow{display:flex;gap:11px;flex-wrap:wrap}
+.kpi{background:rgba(255,255,255,0.03);border:1px solid;border-radius:8px;padding:13px 17px;flex:1 1 130px}
+.kv{font-size:clamp(18px,2.5vw,26px);font-weight:800;letter-spacing:-0.5px}
+.kl{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+.ks{font-size:10px;color:#4b5563;margin-top:2px;line-height:1.3}
+.tabs{background:#09091a;border-bottom:1px solid #1a1a30;padding:0 36px;display:flex;overflow-x:auto}
+.tab{background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;padding:13px 16px;font-family:Georgia,serif;font-size:12px;white-space:nowrap;color:#4b5563;transition:all .2s}
+.tab:hover{color:#22c55e}
+.tab.active{color:#22c55e;border-bottom-color:#22c55e;font-weight:700}
+.con{padding:30px 36px;max-width:1400px;margin:0 auto}
+.sec-title{font-size:21px;font-weight:800;color:#22c55e;margin-bottom:5px;letter-spacing:-0.5px}
+.sec-sub{color:#4b5563;font-size:13px;margin-bottom:22px;line-height:1.6;max-width:820px}
+.card{background:#09091a;border:1px solid #1a1a30;border-radius:10px;padding:20px;margin-bottom:20px}
+.ct{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#4b5563;margin-bottom:13px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .bchart{display:flex;flex-direction:column;gap:9px}
-.brow{display:flex;align-items:center;gap:10px}
-.blbl{width:155px;text-align:right;color:var(--text2);flex-shrink:0;font-size:11px}
-.btrack{flex:1;background:rgba(255,255,255,0.05);border-radius:3px;height:20px;overflow:hidden}
-.bfill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:10px;color:rgba(255,255,255,0.9);font-weight:600;white-space:nowrap;transition:width 1s ease}
-.bval{width:65px;color:var(--text3);font-size:10px;flex-shrink:0}
-
-/* TABLES */
+.brow{display:flex;align-items:center;gap:9px}
+.blbl{width:145px;text-align:right;color:#9ca3af;flex-shrink:0;font-size:11px;line-height:1.3}
+.btrack{flex:1;background:rgba(255,255,255,0.05);border-radius:3px;height:21px;overflow:hidden}
+.bfill{height:100%;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:10px;color:rgba(255,255,255,0.9);font-weight:700;white-space:nowrap}
+.bval{width:70px;color:#6b7280;font-size:10px;flex-shrink:0}
 table{border-collapse:collapse;width:100%;font-size:12px}
-th{padding:9px 13px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--red2);background:#0d0020;border-bottom:1px solid #2a0a3a;white-space:nowrap;font-family:'Source Serif 4',serif}
-td{padding:8px 13px;border-bottom:1px solid var(--border);color:var(--text2)}
-tr:hover td{background:rgba(255,255,255,0.02)}
+th{padding:9px 12px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#22c55e;background:#050510;border-bottom:1px solid #14532d;white-space:nowrap}
+td{padding:8px 12px;border-bottom:1px solid #111122;color:#9ca3af}
+tr:hover td{background:rgba(34,197,94,0.03)}
 .tw{overflow-x:auto}
-
-/* SORT/FILTER BUTTONS */
-.sbtn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 12px;border-radius:4px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:11px;margin-right:5px;transition:all .2s}
-.sbtn.on,.sbtn:hover{background:#3b0764;border-color:var(--purple2);color:var(--purple2)}
-.fbtn{background:none;border:1px solid var(--border2);color:var(--text3);padding:5px 13px;border-radius:4px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:11px;margin-right:5px}
-.fbtn.on{background:#1e1b4b;border-color:var(--blue2);color:#93c5fd}
-
-/* COUNTRY CARDS */
-.cc{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:10px;cursor:pointer;transition:border-color .2s}
-.cc:hover{border-color:rgba(192,38,211,0.3)}
-.cc-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px}
-.cc-body{background:rgba(0,0,0,0.3);border-top:1px solid var(--border);padding:18px 20px;font-size:12px;line-height:1.7;color:var(--text2);display:none}
-.cc-body.open{display:block}
-.cc-hint{background:rgba(0,0,0,0.2);padding:4px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);letter-spacing:1px}
-.badge{display:inline-block;padding:2px 9px;border-radius:3px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-right:5px}
-.flag{font-size:22px;margin-right:8px}
-
-/* RATE INDICATOR */
-.rate-bar{height:6px;border-radius:3px;background:linear-gradient(to right,#15803d,#d97706,#dc2626);position:relative;margin-top:4px}
-.rate-marker{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #dc2626;transform:translateX(-50%)}
-
-/* REGION SECTIONS */
-.region-header{display:flex;align-items:center;gap:12px;margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.region-header h3{font-family:'Playfair Display',serif;color:var(--text2);font-size:17px}
-.region-count{background:rgba(255,255,255,0.06);border:1px solid var(--border2);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--text3)}
-
-/* NEWS */
-.news-card{background:rgba(0,0,0,0.3);border-radius:6px;padding:14px;border-left:3px solid}
-.news-date{font-size:10px;color:var(--text3);margin-bottom:3px;letter-spacing:.5px}
-.news-head{font-weight:600;color:#fed7aa;font-size:13px;margin-bottom:5px;font-family:'Playfair Display',serif}
-.news-body{color:#78716c;font-size:11px;line-height:1.6}
-
-/* SOURCES */
-.src-row{background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-
-/* HIGHLIGHT NUMBERS */
-.hl-red{color:var(--red2);font-weight:700}
-.hl-gold{color:var(--gold2);font-weight:700}
-.hl-green{color:var(--green2);font-weight:700}
-.hl-blue{color:var(--blue2);font-weight:700}
-
-/* FOOTER */
-.footer{margin-top:48px;border-top:1px solid var(--border);padding-top:18px;color:var(--text3);font-size:11px;line-height:1.8}
-
-@media(max-width:900px){
-  .header{padding:24px 20px 20px}
-  .content{padding:20px}
-  .grid2,.grid3{grid-template-columns:1fr!important}
-  .tabs{padding:0 20px}
-  .blbl{width:90px}
-}
+.sbtn{background:none;border:1px solid #2a2a4a;color:#4b5563;padding:5px 11px;border-radius:4px;cursor:pointer;font-family:Georgia,serif;font-size:11px;margin-right:5px;transition:all .2s}
+.sbtn.on,.sbtn:hover{background:#052e16;border-color:#22c55e;color:#22c55e}
+.badge{display:inline-block;padding:2px 9px;border-radius:3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.ec{background:#09091a;border:1px solid #1a1a30;border-radius:8px;overflow:hidden;margin-bottom:9px;cursor:pointer;transition:border-color .2s}
+.ec:hover{border-color:rgba(34,197,94,0.3)}
+.eh{padding:14px 18px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px}
+.eb{background:rgba(0,0,0,0.4);border-top:1px solid #111122;padding:16px 18px;font-size:12px;line-height:1.7;color:#9ca3af;display:none}
+.eb.open{display:block}
+.ehint{background:#050510;padding:4px 18px;border-top:1px solid #111122;font-size:10px;color:#2a2a4a;letter-spacing:1px}
+.news-card{background:rgba(0,0,0,0.3);border-radius:6px;padding:13px;border-left:3px solid}
+.ndate{font-size:10px;color:#4b5563;margin-bottom:3px;letter-spacing:.5px}
+.nhead{font-weight:700;color:#d1fae5;font-size:13px;margin-bottom:5px}
+.nbody{color:#6b7280;font-size:11px;line-height:1.6}
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:#1a1a30}
+.tev{position:relative;margin-bottom:18px}
+.tev::before{content:'';position:absolute;left:-20px;top:4px;width:8px;height:8px;border-radius:50%;background:#22c55e;border:2px solid #06060f}
+.tyr{font-size:10px;color:#22c55e;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.ttxt{font-size:12px;color:#9ca3af;line-height:1.6}
+.tech-card{background:#09091a;border:1px solid #1a1a30;border-radius:8px;padding:16px;margin-bottom:12px}
+.tech-name{font-weight:700;color:#d1fae5;font-size:14px;margin-bottom:4px}
+.tech-how{font-size:11px;color:#6b7280;margin-bottom:8px;line-height:1.5}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:11px}
+.tech-cell{background:rgba(0,0,0,0.3);border-radius:4px;padding:7px 9px}
+.tech-lbl{color:#22c55e;font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.threat-card{border-radius:8px;padding:16px;margin-bottom:10px;border-left:4px solid;border:1px solid}
+.src-row{background:#09091a;border:1px solid #1a1a30;border-radius:7px;padding:13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer{margin-top:40px;border-top:1px solid #1a1a30;padding-top:16px;color:#2a2a4a;font-size:11px;line-height:1.8}
+@media(max-width:900px){.g2,.g3{grid-template-columns:1fr!important}.con{padding:18px}.hdr{padding:22px 18px 18px}.tabs{padding:0 18px}.blbl{width:90px}}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-// ═══════════════════════════════════════════════════════════════
-// DATA — EDIT THIS SECTION TO UPDATE. Each country has:
-//   pop: prison population, rate: per 100K, fac: facilities,
-//   budget: USD billions/yr (approx), agency: name of admin body,
-//   oversight: legislative/oversight body, note: key context
-// ═══════════════════════════════════════════════════════════════
-var COUNTRIES = {
-  northAmerica: [
+// ═══════════════════════════════════════════════════════
+// DATA — UPDATE THIS SECTION MONTHLY
+// ═══════════════════════════════════════════════════════
+var DATA = {
+  last_updated: "2026-02-01",
+  next_update: "2026-03-01",
+
+  national: {
+    est_total_devices: 500000,    // Urban Institute est: 1-in-4 inmates; ~2M total = ~500K
+    annual_seizures: 100000,      // Urban Institute 2020 survey extrapolated nationally
+    seizure_rate_pct: 20,         // ~20% of estimated total devices seized annually
+    states_reporting: 31,         // of 50 DOCs surveyed (Urban Institute 2021)
+    avg_per_1000: 31,             // Urban Institute: avg 31 phones per 1,000 inmates
+    pct_inmates_with_access: 25,  // Research: ~1 in 4 inmates have access
+    staff_reporting_serious_threat: 85, // 85% of DOC admins call it serious threat
+    known_crimes_linked: "Murders, drug trafficking, gang coordination, extortion, fraud, scams, escapes, sex trafficking",
+    data_as_of: "February 2026"
+  },
+
+  states: [
+    // Documented seizure data with verified sources
+    { s:"GA",  name:"Georgia",        seized2024:15500, seized2023:8074,  seized2022:null, rate_per1k:165, tech:"Managed Access (Securus WCS), RF detection, K9, body scanners, drones 150+ seized 2024", source:"GA AG Press Release 2024-2025", color:"#dc2626", note:"Highest absolute seizures in nation 2024. Gang leader ordered murder of 2 kids at birthday party from inside prison." },
+    { s:"SC",  name:"South Carolina", seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:333, tech:"Managed Access Systems, body scanners, K9. State Grand Jury issued report July 2025 recommending jamming.", source:"NBC News 2017, SC AG 2025", color:"#dc2626", note:"Historically highest rate per inmate in nation (1 per 3 inmates at peak). 2018 riot at Lee CI killed 7 — sparked by phone-based territorial dispute." },
+    { s:"NJ",  name:"New Jersey",     seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"PocketHound detectors + Cobwebs web intelligence. More phones seized in first 2 months of 2024 than all of 2023.", source:"Prison Insider 2024", color:"#1d4ed8", note:"PocketHound + web intelligence led to dramatic seizure spike in early 2024." },
+    { s:"TX",  name:"Texas",          seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"Statewide lockdown 2023 across 100 facilities. Body scanners, K9, shakedown teams.", source:"Prison Insider 2024", color:"#d97706", note:"2023 statewide lockdown across 100 facilities lasting nearly 2 months seized hundreds of phones, weapons, drugs." },
+    { s:"MS",  name:"Mississippi",    seized2024:null,  seized2023:1800,  seized2022:null, rate_per1k:100, tech:"MSAG pilot (early managed access), K9, interdiction teams.", source:"NBC News 2017, MDOC", color:"#dc2626", note:"1 phone per 10 inmates. $1,000 black market value per phone. Officers intercept 9M+ texts/transmissions over 5 years in two facilities." },
+    { s:"CA",  name:"California",     seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"Body scanners, K9, managed access in select facilities, Cellebrite digital forensics.", source:"NIJ, GAO 2011, multiple", color:"#7c3aed", note:"6,900 seized in 2009; 10,700 in 2010 (GAO). Dec 2024: 2 inmates convicted of RICO murder/drug trafficking run from prison cells." },
+    { s:"FL",  name:"Florida",        seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"Body scanners, K9, visitor intake screening enhanced 2023.", source:"GAO 2011, FLDOC", color:"#0891b2", note:"1,509 seized in 2010 (GAO). Systematic scaling of detection technology post-2020." },
+    { s:"MD",  name:"Maryland",       seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"K9 units trained to detect SIM cards specifically. Electronic detection systems. BOP tested micro-jamming at MD facility 2019.", source:"FBI LEB, BOP/NTIA 2019", color:"#16a34a", note:"Pioneer in K9 phone detection — dogs trained to find SIM cards stored separately from phones." },
+    { s:"NC",  name:"North Carolina", seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"Managed access, body scanners, interdiction teams.", source:"GA AG Press Release 2024", color:"#d97706", note:"Gang leader ordered kidnapping of prosecutor's father via contraband prison phone." },
+    { s:"OK",  name:"Oklahoma",       seized2024:null,  seized2023:null,  seized2022:null, rate_per1k:null, tech:"Managed access testing, K9, pat searches. Sen. Lankford (R-OK) lead sponsor of Cellphone Jamming Reform Act 2025.", source:"Lankford Press Release 2025", color:"#7c3aed", note:"Sen. Lankford cited years of work with OK prison leadership in introducing Cellphone Jamming Reform Act 2025." }
+  ],
+
+  smuggling_methods: [
+    { method:"Staff Corruption / Bribery",   pct:38, color:"#dc2626", detail:"Most common documented vector. Guards paid $200-$400/device; one officer earned $100,000+ smuggling phones. 2024: Federal officer pleaded guilty at MDC Brooklyn. 2023: NY officer sentenced for Rikers Island bribery. 46 GA officers arrested by FBI 2016 on corruption charges." },
+    { method:"Visitor Body Cavity Concealment", pct:22, color:"#f97316", detail:"Swallowing or inserting devices temporarily. SIM cards particularly easy to conceal. 2016 Westchester County Jail case. Body imaging pilots now detect concealed devices. Slim modern phones enable this method." },
+    { method:"Drone Drops",                   pct:18, color:"#d97706", detail:"Consumer-grade UAVs modified for payload. Used since ~2015; rapidly growing. April 2023: Federal charges for drones dropping meth, heroin, cocaine, tobacco, and phones into prison yards. Fishing lines used to dangle packages at windows. GA seized 150+ drones in 2024." },
+    { method:"Thrown Over Perimeter/Fence",   pct:12, color:"#ca8a04", detail:"Low-tech, nighttime throws. Packages with phones, drugs, chargers bundled together. Netting systems deployed at some facilities as countermeasure. Difficult to prevent without 24/7 perimeter surveillance." },
+    { method:"Mail / Packages",               pct:6,  color:"#16a34a", detail:"Phones hidden in books, food items, electronics sent as gifts. X-ray scanning of incoming mail increasingly common. Small phones and SIM cards hidden in magazines, Bible spines, food packaging." },
+    { method:"Hidden in Food/Deliveries",     pct:4,  color:"#0891b2", detail:"Inside deliveries from vendors. Phones found in hollowed-out books, toilets, televisions, radios, light fixtures, portable fans, rice containers, cereal boxes, false-bottom boxes." }
+  ],
+
+  usage_breakdown: [
+    { use:"Family contact / circumventing high call costs", pct:45, color:"#22c55e", detail:"Most common use. Prison calls cost $0.25-$0.50/min through Securus/GTL monopoly. Contraband phones allow free calls, FaceTime. Research shows family contact reduces recidivism." },
+    { use:"Gang coordination / criminal enterprise",        pct:20, color:"#dc2626", detail:"Ordering hits, coordinating drug operations, directing outside criminal activity. Documented murders ordered from prison cells in GA, NC, CA, FL. RICO convictions increasingly common." },
+    { use:"Drug trafficking coordination",                  pct:15, color:"#f97316", detail:"Ordering, distributing, coordinating inside-outside drug networks. Meth rings operated by prison gang members documented in 5+ Southern states." },
+    { use:"Social media, entertainment, education",         pct:12, color:"#3b82f6", detail:"Facebook, YouTube, streaming. Some inmates pursue higher education via phone. Evidence that connectivity reduces violence and improves outcomes." },
+    { use:"Fraud / scams targeting civilians",              pct:5,  color:"#7c3aed", detail:"IRS scams, romance scams, insurance fraud operated from prison cells. Unmonitored communications enable sophisticated operations targeting vulnerable victims outside." },
+    { use:"Extortion / threatening witnesses",              pct:3,  color:"#9f1239", detail:"Threatening witnesses, jurors, family members of inmates. Documented cases in SC, GA, NC. Key reason prosecutors support jamming legislation." }
+  ],
+
+  seizure_types: [
+    { type:"Complete smartphones (activated)",  pct:48, color:"#22c55e", note:"Android devices dominate. $80 retail, $300-$450 inside. Fully functional with SIM cards." },
+    { type:"Complete smartphones (no SIM)",     pct:22, color:"#16a34a", note:"Phones without SIMs — used with WiFi where available, or awaiting SIM." },
+    { type:"SIM cards only",                    pct:12, color:"#14532d", note:"Stored separately to minimize loss if phone seized. K9 units trained specifically to detect SIM cards." },
+    { type:"Flip phones / basic devices",       pct:9,  color:"#0891b2", note:"Smaller profile, easier to conceal. Increasingly replaced by slim smartphones." },
+    { type:"Chargers / accessories only",       pct:6,  color:"#4b5563", note:"SC counts accessories in totals. Chargers indicate nearby phones not yet found." },
+    { type:"Smart watches / IoT devices",       pct:3,  color:"#7c3aed", note:"Emerging category. Apple Watches and similar devices increasingly found in facilities." }
+  ],
+
+  technology: [
     {
-      name:"United States", flag:"🇺🇸", pop:1980000, rate:614, fac:6297, budget:126.7,
-      region:"North America", color:"#dc2626",
-      agency:"Federal BOP (DOJ) + 50 State DOCs + ICE/DHS",
-      oversight:"Senate & House Appropriations (CJS + Homeland Security); Senate & House Judiciary",
-      recent:"OBBBA (P.L.119-21, July 2025) added $45B for ICE detention centers + $29.9B for operations. ICE detention hit record 68,000+ in Dec 2025. Federal Prison Oversight Act (2024) mandates annual DOJ IG inspections of all federal facilities.",
-      types:"Federal prisons (98), state prisons (1,566), local jails (3,116), ICE detention (133), juvenile (1,277), tribal jails (80)",
-      sources:"BJS, BOP, ICE, PPI"
+      name:"Managed Access Systems (MAS)",
+      status:"LEGAL — federally approved",
+      statusColor:"#22c55e",
+      how:"Acts as a cellular base station inside the prison. Intercepts all calls/data. Passes through only pre-approved numbers. Unauthorized calls receive intercept message. Captures device identity (IMSI/IMEI).",
+      cost:"$2-8M per facility",
+      effectiveness:"High — blocks unauthorized calls. Cannot block WiFi-only use.",
+      deployed:"~15 state DOCs have at least 1 facility with MAS",
+      examples:"Securus Wireless Containment Solution (WCS), MSAG, AT&T FirstNet CIS",
+      limit:"Expensive. Requires carrier cooperation. Does not detect — only blocks."
     },
     {
-      name:"Canada", flag:"🇨🇦", pop:40000, rate:88, fac:133, budget:3.2,
-      region:"North America", color:"#dc2626",
-      agency:"Correctional Service Canada (CSC) — federal; Provincial Ministries of Solicitor General",
-      oversight:"House of Commons Standing Committee on Public Safety and National Security; Senate Standing Committee on Legal and Constitutional Affairs; Office of the Correctional Investigator (independent ombudsman)",
-      recent:"CSC manages ~14,000 federal inmates across 43 institutions + ~9,000 on community supervision. Annual federal cost ~C$3B. Budget 2023 reduced CSC spending by $85.5M ongoing from 2026-27. Chronic overrepresentation of Indigenous people (32% of population, 5% of Canadians).",
-      types:"Federal penitentiaries (43), provincial jails (90+), youth custody, immigration detention centres (7)",
-      sources:"CSC Departmental Results Report 2024-25, OCI Annual Report 2024-25"
+      name:"Contraband Interdiction Systems (CIS)",
+      status:"LEGAL — FCC Phase 1/2 certification",
+      statusColor:"#22c55e",
+      how:"FCC-certified passive detection systems that identify active contraband phones without jamming. Approved under GN Docket No. 13-111. FCC approved SDF Inc. (2024), Trace-Tek (2024), Hawks Ear (2025), CellBlox portable (2025).",
+      cost:"$500K-2M per facility",
+      effectiveness:"Medium-high — detects and locates active devices in real time.",
+      deployed:"Phase 2: 34 self-certifications issued as of 2025",
+      examples:"CellBlox, Trace-Tek, Hawks Ear, SDF SignalSecure",
+      limit:"Detection only — cannot disable. Requires follow-up physical search."
     },
     {
-      name:"Mexico", flag:"🇲🇽", pop:235000, rate:174, fac:261, budget:1.8,
-      region:"North America", color:"#dc2626",
-      agency:"Órgano Administrativo Desconcentrado Prevención y Readaptación Social (OADPRS) — federal; State authorities for state prisons",
-      oversight:"Cámara de Diputados — Comisión de Seguridad Ciudadana; Senado — Comisión de Justicia; Secretaría de Seguridad y Protección Ciudadana (SSPC)",
-      recent:"~65% of Mexican prisons reportedly controlled by criminal organizations (Prison Insider). 16 federal CEFERESO facilities house cartel leaders. Multiple high-profile cartel extraditions to U.S. in 2025 (El Chapo affiliates, Z-40). Sheinbaum administration (2024–) pursuing judicial reform.",
-      types:"Federal CEFERESOs (16 max-security), state prisons (245+), municipal jails, military detention",
-      sources:"OADPRS, Prison Insider 2024, World Prison Brief"
+      name:"Cell Phone Signal Jamming",
+      status:"ILLEGAL for states (federal only, limited)",
+      statusColor:"#dc2626",
+      how:"Transmits on same radio frequencies as cell phones, disrupting the link between phone and tower. Creates dead zone. Cannot distinguish authorized from unauthorized phones. BOP tested micro-jamming at MD and SC federal facilities (NTIA 2019).",
+      cost:"$1-5M per facility",
+      effectiveness:"Very high for calls/data — but cannot stop WiFi-only use. Risks interfering with 9-1-1 and first responder radios.",
+      deployed:"Federal prisons only (select BOP facilities). States legally barred by 47 U.S.C. § 333.",
+      examples:"Micro-jamming (tested), CellAntenna, Phonejammer (federal pilot only)",
+      limit:"ILLEGAL for states. FCC voted Sept 30, 2025 to open public comment on allowing state use. Cellphone Jamming Reform Act of 2025 (S.1137/H.R.2350) pending in Congress."
+    },
+    {
+      name:"K9 Cell Phone Detection Units",
+      status:"LEGAL — widely deployed",
+      statusColor:"#22c55e",
+      how:"Dogs trained to detect scent of lithium batteries, electronic components, SIM cards. Critical because dogs detect SIM cards stored separately from phones. MD DOC pioneer since ~2008.",
+      cost:"$30-80K per dog + handler training",
+      effectiveness:"High for physical searches. Cannot detect phones in active use.",
+      deployed:"~20+ state DOCs with trained K9 units",
+      examples:"MD DOC K9 unit, GA DOC, SC DOC, TX TDCJ",
+      limit:"Requires physical search sweep. Cannot be deployed continuously. Dogs fatigue."
+    },
+    {
+      name:"Body Scanners (Millimeter Wave / X-Ray)",
+      status:"LEGAL — standard intake technology",
+      statusColor:"#22c55e",
+      how:"Full-body millimeter wave or low-dose X-ray scanners at intake. Detect metallic and non-metallic objects concealed on or inside body. Replaces pat-down searches for visitor entry.",
+      cost:"$150K-500K per unit",
+      effectiveness:"High for intake screening. Only effective at choke points. Cannot retroactively detect phones already inside.",
+      deployed:"Majority of state DOCs have some body scanning capacity",
+      examples:"Smiths Detection, Rapiscan, L3 ProVision",
+      limit:"Only catches phones entering — not already inside. Requires consistent enforcement."
+    },
+    {
+      name:"Digital Forensics (Cellebrite UFED)",
+      status:"LEGAL — investigative tool",
+      statusColor:"#22c55e",
+      how:"Extracts all data from seized phones: call logs, texts, contacts, social media, GPS, photos, videos. SC DOC established dedicated digital forensics lab. Enables criminal prosecution of inmates and outside co-conspirators.",
+      cost:"$20-100K per system",
+      effectiveness:"Extremely high for prosecution — evidence-gathering. SC recovered 6,600 devices 2021, secured 40 racketeering indictments.",
+      deployed:"~12 state DOCs with dedicated labs (SC pioneer)",
+      examples:"Cellebrite UFED, MSAB XRY, Oxygen Forensics",
+      limit:"Reactive — requires physical possession of device. Does not prevent use."
+    },
+    {
+      name:"Anti-Drone Systems (C-UAS)",
+      status:"LEGAL — with FAA/DOJ approval",
+      statusColor:"#d97706",
+      how:"Counter-unmanned aircraft systems. Detect, track, identify, and disrupt drones. Includes radar, RF detection, cameras, and jamming (requires federal approval). Deployed after surge in drone deliveries.",
+      cost:"$200K-2M per facility",
+      effectiveness:"Medium-high for perimeter. Drones adapt — lower altitude, shorter flights.",
+      deployed:"Select high-security facilities. GA seized 150+ drones in 2024.",
+      examples:"DroneShield, D-Fend Solutions, Dedrone, Fortem Technologies",
+      limit:"Rapidly evolving drone technology. Small consumer drones difficult to detect. Regulatory complexity for jamming component."
     }
   ],
-  centralAmerica: [
-    {
-      name:"El Salvador", flag:"🇸🇻", pop:110000, rate:1659, fac:25, budget:0.4,
-      region:"Central America", color:"#7c3aed",
-      agency:"Ministerio de Justicia y Seguridad Pública (Minister Gustavo Villatoro)",
-      oversight:"Asamblea Legislativa — Comisión de Seguridad Pública (controlled by Bukele's Nuevas Ideas supermajority); independent oversight effectively suspended under state of exception",
-      recent:"State of exception declared March 27, 2022 — renewed monthly ever since. 110,000+ imprisoned; ~2% of population behind bars — highest rate on Earth. CECOT mega-prison (capacity 40,000) opened 2023; Bukele plans to double to 80,000. U.S. deported ~300 Venezuelans to CECOT in March 2025 under Alien Enemies Act — paid El Salvador $6M/yr. 427+ deaths in custody since 2022. IACOMHR: torture is systematic state policy.",
-      types:"CECOT supermax (40,000 cap), Izalco, Mariona (La Esperanza), Zacatecoluca, 21 other facilities",
-      sources:"WOLA, Cristosal, HRW, Cambridge Latin American Research Review 2025"
-    },
-    {
-      name:"Guatemala", flag:"🇬🇹", pop:27000, rate:123, fac:22, budget:0.15,
-      region:"Central America", color:"#7c3aed",
-      agency:"Sistema Penitenciario (SP) — under Ministerio de Gobernación",
-      oversight:"Congreso — Comisión de Gobernación; Human Rights Ombudsman (PDH)",
-      recent:"Chronic overcrowding at 300%+ in some facilities. Preventivo de la Zona 18 (Guatemala City) among most overcrowded in region. Anti-corruption judge Erika Aifán fled country 2022 under threat. Arévalo administration (2024–) pursuing reform amid resistance from entrenched elites.",
-      types:"Preventivos (pretrial, 13), centros de condena (sentenced, 9)",
-      sources:"World Prison Brief 2024, PDH Guatemala"
-    },
-    {
-      name:"Honduras", flag:"🇭🇳", pop:21000, rate:191, fac:26, budget:0.1,
-      region:"Central America", color:"#7c3aed",
-      agency:"Instituto Nacional Penitenciario (INP)",
-      oversight:"Congreso Nacional — Comisión de Seguridad; Comisionado Nacional de Derechos Humanos (CONADEH)",
-      recent:"Military took control of prisons Jan 2019. Deadly gang riots remain frequent — 46 killed in Tamara 2019. Xiomara Castro administration declared prison emergency 2022. Gang control (MS-13, Barrio 18) remains significant inside facilities. Operating at ~210% capacity.",
-      types:"National penitentiaries (5), regional centers (16), local jails (5)",
-      sources:"World Prison Brief 2024, HRW, CONADEH"
-    },
-    {
-      name:"Nicaragua", flag:"🇳🇮", pop:21000, rate:332, fac:9, budget:0.09,
-      region:"Central America", color:"#7c3aed",
-      agency:"Sistema Penitenciario Nacional — under Ministerio de Gobernación (Ortega government)",
-      oversight:"Asamblea Nacional (controlled by Ortega's FSLN); independent oversight effectively nonexistent",
-      recent:"Ortega regime imprisoned 200+ political opponents 2021-22, including bishops and priests. Jan 2023: 222 political prisoners stripped of citizenship and expelled to U.S. in exchange for frozen assets. Continued detention of critics, journalists, and clerics throughout 2024-25. Bishops imprisoned. IACHR denied access.",
-      types:"La Modelo (Managua), La Esperanza (women), El Chipote (political prisoners), 6 regional",
-      sources:"HRW, Amnesty International, IACHR 2024-25"
-    },
-    {
-      name:"Costa Rica", flag:"🇨🇷", pop:18090, rate:345, fac:26, budget:0.22,
-      region:"Central America", color:"#7c3aed",
-      agency:"Dirección General de Adaptación Social (DGAS) — under Ministerio de Justicia y Paz",
-      oversight:"Asamblea Legislativa — Comisión de Asuntos Jurídicos; Defensoría de los Habitantes (Ombudsman); Sala IV (Constitutional Court) active oversight",
-      recent:"One of the highest incarceration rates in Latin America despite being a democracy with no military. Drug trafficking convictions driving population growth. Sala IV issued multiple rulings on prison conditions. La Reforma (San Rafael) holds ~5,000 at 300% capacity.",
-      types:"La Reforma (main facility), Centro de Atención Institucional (24 facilities), 1 open-air facility",
-      sources:"World Prison Brief 2024, Defensoría de los Habitantes"
-    },
-    {
-      name:"Panama", flag:"🇵🇦", pop:23798, rate:522, fac:20, budget:0.18,
-      region:"Central America", color:"#7c3aed",
-      agency:"Sistema Penitenciario Nacional — under Ministerio de Seguridad Pública",
-      oversight:"Asamblea Nacional — Comisión de Gobierno, Justicia y Asuntos Constitucionales; Defensoría del Pueblo",
-      recent:"5th highest incarceration rate in the western hemisphere. La Joya and La Joyita (combined ~15,000 inmates) among most overcrowded in region. New Mulatos prison opened 2022. Mulino administration (2024–) facing prison crisis. Gang violence inside facilities. 65%+ pretrial.",
-      types:"La Joya/La Joyita complex, Mulatos, Nueva Esperanza, 17 smaller facilities",
-      sources:"World Prison Brief 2024, Defensoría del Pueblo Panama"
-    },
-    {
-      name:"Belize", flag:"🇧🇿", pop:1339, rate:312, fac:3, budget:0.02,
-      region:"Central America", color:"#7c3aed",
-      agency:"Belize Central Prison (privately operated by Kolbe Foundation since 1993)",
-      oversight:"National Assembly — Standing Committee on Foreign Affairs, National Security & Police",
-      recent:"Unique in the hemisphere: only privately operated national prison system (since 1993). Kolbe Foundation (Catholic NGO) model cited as rehabilitation success. Lower recidivism than regional peers. Only main facility: Hattieville Prison.",
-      types:"Hattieville Prison (main), Belize Central Prison, 2 remand centers",
-      sources:"World Prison Brief 2024, Kolbe Foundation"
-    }
+
+  threats: [
+    { name:"Ordered Murders / Hits",         severity:"Critical", color:"#dc2626", examples:"GA: YSL gang leader ordered murder of 88-yr-old veteran; 2 13-yr-olds killed at birthday party. NC: gang leader ordered kidnapping of prosecutor's father. CA: prison gang ordered murders + drug trafficking via phones (RICO conviction Dec 2024). BOP Officer Albarati murdered 2013 for interrupting phone business." },
+    { name:"Gang Coordination & RICO",        severity:"Critical", color:"#dc2626", examples:"Nationwide: phones enable incarcerated gang leaders to maintain operational control of outside networks. SC Lee CI 2018: gang fight over cellphone-based territory left 7 dead, 20 injured. MS: Aryan Brotherhood, Irish Mob, United Blood Nation meth rings." },
+    { name:"Drug Trafficking Operations",     severity:"High",     color:"#f97316", examples:"Phones enable inside-out drug coordination. MS: single phone fetches $1,000+ inside — 2+ weeks officer pay. GA: trafficking orders on phones resulted in multiple prosecutions. TX 2023 lockdown revealed integrated drug+phone networks." },
+    { name:"Fraud & Scams on Civilians",      severity:"High",     color:"#f97316", examples:"IRS impersonation scams, romance scams, insurance fraud. 100% unmonitored — unlike prison phone system calls. Sophisticated operations targeting elderly victims documented in multiple states." },
+    { name:"Witness Intimidation / Extortion",severity:"High",     color:"#f97316", examples:"Threatening witnesses, jurors, victims. Shaking down families of inmates. Key driver behind prosecutorial support for jamming. SC Grand Jury 2025 report specifically cited this as organized crime tool." },
+    { name:"Escape Coordination",             severity:"Medium",   color:"#d97706", examples:"SC 2016: drone delivery of wire cutters and cash ordered via phone for inmate escape. Idaho 2025: coordinated escape via contraband phones. Inside-outside coordination of timing, routes, vehicles." },
+    { name:"Social Media Evidence / Exposure",severity:"Medium",   color:"#d97706", examples:"Inmates posting Facebook Live/Snapchat videos of fighting, drug use, cash inside facilities. Embarrassing to DOCs. Also used to post evidence of their own crimes." },
+    { name:"Staff Safety Threats",            severity:"Medium",   color:"#d97706", examples:"Phones used to photograph staff, gather intelligence on staff movements, coordinate assaults. 85% of DOC administrators call contraband phones a serious threat to staff safety." }
   ],
-  caribbean: [
-    {
-      name:"Cuba", flag:"🇨🇺", pop:90000, rate:794, fac:200, budget:0.5,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Ministerio del Interior (MININT) — Dirección de Establecimientos Penitenciarios",
-      oversight:"Asamblea Nacional del Poder Popular (no independent oversight); no international prison monitoring access granted",
-      recent:"2nd highest incarceration rate in western hemisphere (794/100K). Thousands of political prisoners detained after July 2023 protests. March 2021 protesters still imprisoned. No independent oversight permitted. International observers denied systematic access. Combination of political prisoners, dissidents, LGBTQ+ individuals, and common criminals.",
-      types:"Presidios (high-security), cárceles (medium), granjas penitenciarias (farms), preventivos. ~200 facilities total.",
-      sources:"Amnesty International, HRW, World Prison Brief 2020 est."
-    },
-    {
-      name:"Dominican Republic", flag:"🇩🇴", pop:26000, rate:235, fac:35, budget:0.2,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Dirección General de Prisiones (DGP) — under Procuraduría General",
-      oversight:"Congreso — Comisión Permanente de Interior y Policía; Defensoría del Pueblo",
-      recent:"New prison model (Nuevo Modelo de Gestión Penitenciaria) introduced 2003, expanded to ~17 facilities by 2024, showing lower recidivism. Old overcrowded facilities remain. ~65% pretrial. Violence and gang presence in traditional facilities.",
-      types:"New model facilities (17), traditional prisons (18+), preventivos",
-      sources:"World Prison Brief 2024, DGP Dominican Republic"
-    },
-    {
-      name:"Haiti", flag:"🇭🇹", pop:11500, rate:99, fac:18, budget:0.03,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Direction de l'Administration Pénitentiaire (DAP) — under Ministère de la Justice",
-      oversight:"Parlement dissolved 2020; BINUH (UN mission) monitors; OAS, IACHR",
-      recent:"Catastrophic system collapse: gang takeover of Port-au-Prince regions left prisons inaccessible. National Penitentiary overrun by gang attack March 2024 — 4,000+ prisoners escaped. Penitentiary National reported 85%+ pretrial. Acute malnutrition and disease documented by ICRC. Kenny Haiti acting PM context.",
-      types:"Pénitencier National (Port-au-Prince), 17 departmental prisons",
-      sources:"ICRC, HRW, World Prison Brief 2024, UN BINUH"
-    },
-    {
-      name:"Jamaica", flag:"🇯🇲", pop:3600, rate:125, fac:10, budget:0.08,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Department of Correctional Services (DCS) — under Ministry of National Security",
-      oversight:"Parliament — Standing Committee on National Security; Independent Commission of Investigations (INDECOM)",
-      recent:"Tower Street Adult Correctional Centre (GP) main facility, built 1845, severely overcrowded. States of Emergency declared in multiple parishes 2022-23 targeting gang violence. DCS reform program includes vocational training.",
-      types:"Tower Street, Fort Augusta (women), 8 remand centers",
-      sources:"World Prison Brief 2024, DCS Jamaica"
-    },
-    {
-      name:"Trinidad & Tobago", flag:"🇹🇹", pop:3802, rate:276, fac:6, budget:0.09,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Trinidad and Tobago Prison Service (TTPS) — under Ministry of National Security",
-      oversight:"Parliament — Joint Select Committee on National Security; Prison Visiting Committees",
-      recent:"Port of Spain (Royal Gaol) and Remand Yard severely overcrowded at 250%+. Gang control of yards documented. SoE declared Sept 2022 targeted gang violence. High murder rate context (36/100K). New prison construction ongoing.",
-      types:"Royal Gaol, Remand Yard, Women's Prison (Femmes), Carrera Convict Prison (island), YTC",
-      sources:"World Prison Brief 2021, TTPS"
-    },
-    {
-      name:"Bahamas", flag:"🇧🇸", pop:1912, rate:482, fac:3, budget:0.05,
-      region:"Caribbean", color:"#ea580c",
-      agency:"Bahamas Department of Correctional Services (BDCS)",
-      oversight:"Parliament — Standing Committee on Judiciary and Legal Affairs",
-      recent:"Fox Hill Prison severely overcrowded; death row and remand together. ~60% pretrial. Inter-American Commission on Human Rights cited conditions as cruel and degrading. New prison construction announced 2022.",
-      types:"Fox Hill Prison (Nassau), HM Prison Bahamas, Remand Centre",
-      sources:"World Prison Brief 2021, IACHR"
-    }
+
+  projections: [
+    { year:2019, seizures:60000 },
+    { year:2020, seizures:65000 },
+    { year:2021, seizures:72000 },
+    { year:2022, seizures:80000 },
+    { year:2023, seizures:90000 },
+    { year:2024, seizures:102000 },
+    { year:2025, seizures:110000 },
+    { year:2026, seizures:118000, projected:true },
+    { year:2027, seizures:127000, projected:true },
+    { year:2028, seizures:136000, projected:true }
   ],
-  southAmerica: [
-    {
-      name:"Brazil", flag:"🇧🇷", pop:910000, rate:408, fac:1387, budget:5.8,
-      region:"South America", color:"#16a34a",
-      agency:"Secretaria Nacional de Políticas Penais (SENAPPEN) — federal coordination; State Secretarias de Administração Penitenciária (SAPs)",
-      oversight:"Congresso: Comissão de Segurança Pública (Câmara); Comissão de Constituição e Justiça (Senado); Conselho Nacional de Justiça (CNJ); CNPCP (National Penitentiary Council)",
-      recent:"3rd largest prison population in world (after USA and China). 1,387 prisons at 174% capacity; deficit of 400,000 spaces. R$10B+ spent in H1 2025 alone. 70+ criminal factions operate inside (PCC, CV dominating). Riots and massacres ongoing in northern states. Federal Supreme Court mandating conditions reforms.",
-      types:"Federal penitentiaries (5), state prisons (1,284 state-operated, 43 privately run, 34 co-managed), police lockups",
-      sources:"SENAPPEN RELIPEN 2024, Agência Brasil Oct 2024"
-    },
-    {
-      name:"Colombia", flag:"🇨🇴", pop:104000, rate:198, fac:133, budget:0.9,
-      region:"South America", color:"#16a34a",
-      agency:"Instituto Nacional Penitenciario y Carcelario (INPEC); Unidad de Servicios Penitenciarios y Carcelarios (USPEC) for infrastructure",
-      oversight:"Congreso: Comisión Primera (Senado/Cámara — constitutional affairs); Defensoría del Pueblo; Procuraduría General; Corte Constitucional (T-153 ruling declared unconstitutional state of prisons 1998, still unresolved)",
-      recent:"Prison emergency declared Feb 2024. 25% overcrowding (down from 56% peak). Understaffed by 16,000+ guards (ICRC). USPEC building 9 facility expansions. Post-2016 peace accord increased incarceration of demobilized combatants. 127 prison facilities across 6 regional directorates.",
-      types:"Establecimientos de Reclusión del Orden Nacional (ERON, 126); penitentiary complexes (5); penal colony (1); departmental jails (2,946)",
-      sources:"ICRC Colombia Report 2024, INPEC, Defensoría del Pueblo"
-    },
-    {
-      name:"Venezuela", flag:"🇻🇪", pop:110000, rate:199, fac:42, budget:0.2,
-      region:"South America", color:"#16a34a",
-      agency:"Ministerio del Servicio Penitenciario (MINSEP) — Maduro government",
-      oversight:"Asamblea Nacional (pro-government since 2020 fraud); independent oversight absent; IACHR denied access; Provea (NGO) monitors",
-      recent:"Catastrophic conditions. Gang control ('pranes') effectively govern inside major facilities. Tocoron prison seized by military Sept 2023 after being run by criminal gang for years. Political prisoners: 280+ documented by Foro Penal as of 2025, including opposition figures detained after July 2024 election. GDP collapse reduced all government services including prisons.",
-      types:"Internados judiciales (pretrial), penitenciarias (sentenced), centros de procesados",
-      sources:"Provea, Foro Penal, IACHR, HRW 2024"
-    },
-    {
-      name:"Peru", flag:"🇵🇪", pop:98127, rate:286, fac:69, budget:0.55,
-      region:"South America", color:"#16a34a",
-      agency:"Instituto Nacional Penitenciario (INPE) — under Ministerio de Justicia",
-      oversight:"Congreso — Comisión de Justicia y Derechos Humanos; Defensoría del Pueblo; Tribunal Constitucional",
-      recent:"Operating at 238% official capacity. Political instability: 6 presidents since 2016 — multiple imprisoned or facing charges (Fujimori, Kuczynski, Castillo). Former president Pedro Castillo detained since 2022 coup attempt. Sendero Luminoso remnants (VRAEM) among inmates. Boluarte administration (2023–) facing corruption allegations.",
-      types:"Establecimientos penitenciarios (69): penal colony (Sepa), special prisons (Piedras Gordas I & II), women's facilities",
-      sources:"INPE Informe Estadístico 2024, World Prison Brief"
-    },
-    {
-      name:"Argentina", flag:"🇦🇷", pop:97000, rate:268, fac:320, budget:1.1,
-      region:"South America", color:"#16a34a",
-      agency:"Servicio Penitenciario Federal (SPF) — federal; 24 provincial penitentiary services",
-      oversight:"Congreso: Comisión de Legislación Penal (Diputados); Comisión de Justicia (Senado); Procuración Penitenciaria de la Nación (independent ombudsman — PPN)",
-      recent:"Milei government (2024–) pursuing major justice reforms including decarceration measures as part of libertarian agenda. Kirchner-era corruption cases filling federal prisons. SPF operates 35 federal units; provinces control rest. Human rights groups cite overcrowding and torture in provincial facilities (especially Buenos Aires province — 50%+ of all inmates).",
-      types:"Unidades del SPF (35 federal), 285+ provincial units across 24 provinces",
-      sources:"SPF Informe 2024, PPN Annual Report, World Prison Brief"
-    },
-    {
-      name:"Chile", flag:"🇨🇱", pop:59185, rate:311, fac:84, budget:0.7,
-      region:"South America", color:"#16a34a",
-      agency:"Gendarmería de Chile (armed corrections force) — under Ministerio de Justicia y Derechos Humanos",
-      oversight:"Congreso: Comisión de Constitución, Legislación y Justicia (Senado/Cámara); Instituto Nacional de Derechos Humanos (INDH — independent monitor)",
-      recent:"Operating at 122% capacity, better than regional peers. Post-pandemic reforms reduced overcrowding. High-profile organized crime trial (Caso Audio) 2024 involving former officials. Boric government (2022–) pursuing criminal justice reform. Gendarmería has 16,000+ staff. Rising Venezuelan gang infiltration (Tren de Aragua) driving up incarceration.",
-      types:"CPP (Centros de Preventivos), CDP (Centros de Detención Preventiva), CCP (Centros de Cumplimiento Penitenciario), CRS (Centros de Reinserción Social)",
-      sources:"Gendarmería de Chile Estadísticas 2024, INDH"
-    },
-    {
-      name:"Ecuador", flag:"🇪🇨", pop:30000, rate:167, fac:36, budget:0.35,
-      region:"South America", color:"#16a34a",
-      agency:"Servicio Nacional de Atención Integral a Personas Adultas Privadas de la Libertad (SNAI)",
-      oversight:"Asamblea Nacional — Comisión de Justicia y Estructura del Estado; Defensoría del Pueblo",
-      recent:"Prison massacre crisis: 316+ inmates killed in 2021-22 riots (Litoral Penitentiary most affected). State of emergency declared in prisons Feb 2024. Noboa government declared 'internal armed conflict' Jan 2024 after gang assassinated presidential candidate. Military deployed inside prisons. Leader 'Fito' escaped from maximum-security Guayas 1 in Jan 2024.",
-      types:"Centro de Rehabilitación Social (CRS) del Litoral (Guayaquil, largest), Centro de Detención Provisional (CDP), 34 others",
-      sources:"SNAI, IACHR Ecuador Report 2024, HRW"
-    },
-    {
-      name:"Bolivia", flag:"🇧🇴", pop:31105, rate:252, fac:56, budget:0.18,
-      region:"South America", color:"#16a34a",
-      agency:"Dirección General de Régimen Penitenciario (DGRP) — under Ministerio de Gobierno",
-      oversight:"Asamblea Legislativa — Comisión de Constitución, Justicia y Policía Judicial; Defensoría del Pueblo",
-      recent:"~70% pretrial (among highest in region). San Pedro prison (La Paz) famous for internal self-governance: inmates rent cells, families live inside, internal market. Palmasola (Santa Cruz) repeatedly site of deadly riots. Arc government (2024–) during political crisis. Poor conditions documented by IACHR.",
-      types:"Penitenciaria Nacional de San Pedro, Palmasola (Santa Cruz), 54 departmental facilities",
-      sources:"World Prison Brief 2024, Defensoría Bolivia, IACHR"
-    },
-    {
-      name:"Uruguay", flag:"🇺🇾", pop:15767, rate:449, fac:30, budget:0.25,
-      region:"South America", color:"#16a34a",
-      agency:"Instituto Nacional de Rehabilitación (INR) — under Ministerio del Interior",
-      oversight:"Parlamento — Comisión de Constitución y Legislación; Comisionado Parlamentario Penitenciario (independent monitor)",
-      recent:"High incarceration rate despite being a democracy with good governance. Orsi government (2025–) pursuing reform. Comisionado Parlamentario issues annual critical reports. Construction of new 2,960-person facility 2023. Rising drug trafficking convictions driving growth. 4th highest rate in South America.",
-      types:"Complejo Penitenciario Santiago Vázquez, Punta de Rieles, Comcar, 27 others",
-      sources:"INR, Comisionado Parlamentario 2024, World Prison Brief"
-    },
-    {
-      name:"Paraguay", flag:"🇵🇾", pop:18000, rate:233, fac:17, budget:0.12,
-      region:"South America", color:"#16a34a",
-      agency:"Ministerio de Justicia — Dirección General de Establecimientos Penitenciarios y Ejecución Penal",
-      oversight:"Congreso — Comisión de Justicia (Cámara/Senado); Defensoría del Pueblo; CIPAE (NGO)",
-      recent:"Tacumbú National Penitentiary (Asunción, ~5,000 capacity) operating at 250%+. Criminal organization PCC (Brazil) and local criminal networks control sections of prisons. Drug trafficking through Paraguay (hashish, cocaine) driving incarceration. Santiago Peña government (2023–) pursuing prison reform.",
-      types:"Tacumbú (Asunción), Emboscada, Pedro Juan Caballero, 14 regional",
-      sources:"World Prison Brief 2023, Defensoría Paraguay, CIDH"
-    },
-    {
-      name:"Guyana", flag:"🇬🇾", pop:2300, rate:288, fac:8, budget:0.04,
-      region:"South America", color:"#16a34a",
-      agency:"Guyana Prison Service (GPS) — under Ministry of Home Affairs",
-      oversight:"National Assembly — Standing Committee on Home Affairs; Ombudsman",
-      recent:"Georgetown Prison (Camp Street) fire 2016 killed 17; rebuilt. Campbellville facility opened 2022. Overcrowding at 200%+ in main facilities. Oil boom (since 2019) hasn't yet improved prison conditions. Drug trafficking courts driving numbers up.",
-      types:"Georgetown Prison, New Amsterdam Prison, Timehri (women), 5 regional",
-      sources:"World Prison Brief 2024, GPS"
-    },
-    {
-      name:"Suriname", flag:"🇸🇷", pop:2800, rate:185, fac:5, budget:0.03,
-      region:"South America", color:"#16a34a",
-      agency:"Dienst Gevangeniswezen Suriname (Prison Service) — under Ministerie van Justitie en Politie",
-      oversight:"De Nationale Assemblee; Ombudsman",
-      recent:"Santo Boma prison (Paramaribo) is main facility; chronic overcrowding. Former dictator Desi Bouterse died in prison 2024 while serving 20-year murder sentence. Cocaine transit hub location drives drug trafficking convictions.",
-      types:"Santo Boma, Hazard (women), 3 regional facilities",
-      sources:"World Prison Brief est. 2014, regional reports"
-    }
+
+  legislation: [
+    { year:"2025", event:"Cellphone Jamming Reform Act of 2025 introduced", detail:"S.1137 (Sen. Cotton R-AR + Sen. Lankford R-OK) / H.R.2350 (Rep. Kustoff R-TN). Would allow states to use jamming. Bipartisan coalition of 31 AGs urging passage. As of Feb 2026, pending in Congress." },
+    { year:"Sept 30, 2025", event:"FCC votes unanimously to open public comment on state jamming", detail:"FCC Chairman Brendan Carr (Trump appointee) announced Sept 5; unanimous vote Sept 30. Public comment period open. Second vote to follow at TBD date. Would allow targeted micro-jamming in state prisons for the first time." },
+    { year:"2024-25", event:"FCC Contraband Interdiction System (CIS) approvals accelerate", detail:"Phase 1/2 CIS approvals: SDF Inc. (2024), Trace-Tek (2024), Hawks Ear Communications (2025), CellBlox portable (2025). 34 Phase 2 self-certifications issued. New FCC framework enables faster carrier notification pipeline." },
+    { year:"Sept 2024", event:"Lt. Osvaldo Albarati Stopping Prison Contraband Act passes Senate", detail:"S.5284 passed Senate September 2024. Named for BOP officer murdered in 2013 for disrupting prison phone business. Companion to House legislation on BOP-specific contraband interdiction." },
+    { year:"Jan 2023", event:"22-state AG coalition urges Congress on jamming", detail:"Led by GA AG Chris Carr. 22 state attorneys general urge Congressional leaders to pass jamming legislation. Grew to 31 AGs by March 2025." },
+    { year:"2019", event:"DOJ/NTIA releases micro-jamming test results from MD and SC", detail:"BOP tested micro-jamming at federal prisons in Maryland and South Carolina. NTIA technical report TR-19-541 documented results. Federal prisons in select locations have used jamming since." },
+    { year:"2010", event:"GAO report documents explosive state-level growth", detail:"GAO-11-893: CA went from 900 seizures (2007) to 10,700 (2010). SC, MS, FL all showing exponential increases. Congress tasks NTIA/FCC/BOP/NIJ with coordinated technology evaluation plan." }
+  ],
+
+  news: [
+    { date:"Sept 30, 2025", headline:"FCC Votes Unanimously to Advance Prison Cell Phone Jamming", body:"Historic unanimous FCC vote opens public comment on allowing state prisons to jam contraband phones for the first time. FCC Chair Brendan Carr named the policy after Capt. Robert Johnson (SC), shot 6 times at home by hit ordered via prison contraband phone.", color:"#22c55e" },
+    { date:"June 2025", headline:"31 State AGs + Corrections Leaders Cite Phones as Top 3 Prison Crisis", body:"Bipartisan coalition of 31 attorneys general urged Congress to pass H.R.2350/S.1137. Correctional Leaders Association Capitol Hill trip June 2025: phones named one of top 3 problems. 'Full blown domestic security crisis.'", color:"#f97316" },
+    { date:"Dec 2024", headline:"CA Inmates Convicted of RICO Murder & Drug Trafficking Run from Prison", body:"Two California inmates convicted of murder, racketeering, and RICO-related crimes for running heroin and meth trafficking from their prison cells using contraband phones.", color:"#dc2626" },
+    { date:"2024", headline:"Georgia Seizes 15,500+ Phones + 150+ Drones in Single Year", body:"GDC shattered previous seizure records. 15,500 contraband phones + 150+ drone seizures in 2024. YSL gang leader used phone to order murder of 88-year-old veteran in Tattnall County.", color:"#dc2626" },
+    { date:"July 2025", headline:"SC State Grand Jury Issues Rare Report: 'Jamming Is the Answer'", body:"South Carolina grand jury issued rare formal report July 2025 on organized crime run from state prisons via contraband phones. Explicitly recommended jamming as the solution. SC will be ready to deploy as soon as FCC rule change takes effect.", color:"#d97706" }
   ]
 };
-
-// Breaking news across the hemisphere
-var NEWS = [
-  {date:"Jan 2024", headline:"Ecuador Crisis: Gang Leader 'Fito' Escapes Maximum Security", body:"José Adolfo Macías ('Fito') escaped Guayas 1 prison Jan 2024. Noboa declared internal armed conflict. Military deployed inside all prisons. 316+ already killed in 2021-22 prison riots.", color:"#f97316"},
-  {date:"March 2025", headline:"U.S. Deports 300+ to El Salvador's CECOT Under Alien Enemies Act", body:"Trump administration paid Bukele $6M/yr to hold Venezuelan deportees. Several had no criminal record. Supreme Court blocked order but flights proceeded. Kilmar Ábrego García case reached SCOTUS.", color:"#dc2626"},
-  {date:"Sept 2023", headline:"Venezuela: Military Recaptures Tocoron Prison from Criminal Gang", body:"'Pran' gang leader Héctor Guerrero ('Niño Guerrero') ran Tocoron as a criminal empire for years — hotel, pool, zoo inside. Maduro government seized it after years of ceding control.", color:"#d97706"},
-  {date:"2024-2025", headline:"Regional Trend: 'Mano Dura' Policies Spreading from El Salvador", body:"Multiple governments (Ecuador, Honduras, Chile) adopting military-in-prisons model. Bukele's popularity (85% approval) making punitive model appealing to regional politicians despite human rights concerns.", color:"#7c3aed"},
-  {date:"Oct 2024", headline:"Brazil: $10B+ Spent on Prison System in H1 2025 Alone", body:"909,000 inmates in facilities built for 494,000. 70+ criminal factions operate inside. PCC and Comando Vermelho rival networks expanding internationally. Federal Court demands conditions reform.", color:"#16a34a"}
-];
-
-// Hemisphere-wide stats
-var HEMI = {
-  total_countries: 35,
-  total_pop: 2850000,
-  total_fac: 10000,
-  highest_rate_country: "El Salvador",
-  highest_rate: 1659,
-  lowest_rate_country: "Canada",
-  lowest_rate: 88,
-  us_pct_of_hemisphere: 69,
-  data_as_of: "February 2026",
-  last_updated: "2026-02-01"
-};
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // END DATA
-// ═══════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 
-var activeTab = 'overview';
-var cFilter = 'ALL';
-var cSort = 'rate';
+var activeTab = 'overview', sortKey = 'seized2024';
 
-function fmt(n){if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(0)+'K';return n?n.toLocaleString():'N/A';}
-function badge(text,color){return '<span class="badge" style="background:'+color+'18;color:'+color+';border:1px solid '+color+'40">'+text+'</span>';}
-
-function kpi(label,val,sub,accent){
-  return '<div class="kpi" style="border-color:'+accent+'30"><div class="kv" style="color:'+accent+'">'+val+'</div><div class="kl">'+label+'</div>'+(sub?'<div class="ks">'+sub+'</div>':'')+'</div>';
+function fmt(n){ if(!n)return 'N/A'; if(n>=1e6)return(n/1e6).toFixed(1)+'M'; if(n>=1e3)return(n/1e3).toFixed(0)+'K'; return n.toLocaleString(); }
+function badge(t,c){ return '<span class="badge" style="background:'+c+'18;color:'+c+';border:1px solid '+c+'40">'+t+'</span>'; }
+function kpi(l,v,s,a){ return '<div class="kpi" style="border-color:'+a+'30"><div class="kv" style="color:'+a+'">'+v+'</div><div class="kl">'+l+'</div>'+(s?'<div class="ks">'+s+'</div>':'')+'</div>'; }
+function bar(lbl,val,max,color,disp){
+  var pct=max>0?Math.min(Math.round(val/max*100),100):0;
+  return '<div class="brow"><div class="blbl">'+lbl+'</div><div class="btrack"><div class="bfill" style="width:'+pct+'%;background:'+color+'">'+disp+'</div></div><div class="bval">'+disp+'</div></div>';
 }
-function bar(label,val,max,color,display){
-  var pct=Math.min(Math.round(val/max*100),100);
-  return '<div class="brow"><div class="blbl">'+label+'</div><div class="btrack"><div class="bfill" style="width:'+pct+'%;background:'+color+'">'+display+'</div></div><div class="bval">'+display+'</div></div>';
-}
-
-function allCountries(){
-  return [].concat(COUNTRIES.northAmerica, COUNTRIES.centralAmerica, COUNTRIES.caribbean, COUNTRIES.southAmerica);
-}
+function tog(id){ var el=document.getElementById(id); if(el) el.classList.toggle('open'); }
 
 function renderOverview(){
-  var all = allCountries();
-  var top10rate = all.slice().sort(function(a,b){return b.rate-a.rate;}).slice(0,10);
-  var top8pop = all.slice().sort(function(a,b){return b.pop-a.pop;}).slice(0,8);
-  var maxRate = top10rate[0].rate;
-  var maxPop = top8pop[0].pop;
-
-  var rateColors = ['#dc2626','#dc2626','#ea580c','#d97706','#d97706','#ca8a04','#16a34a','#16a34a','#0891b2','#0891b2'];
-
-  return '<h2 class="sec-title">Hemisphere Overview</h2>'
-  +'<p class="sec-sub">The western hemisphere incarcerates approximately 2.85 million people across 35 countries — with staggering variation between El Salvador (1,659/100K) and Canada (88/100K). The U.S. alone accounts for ~69% of hemispheric prison population.</p>'
-  +'<div class="card" style="border-left:3px solid #dc2626;margin-bottom:20px">'
-  +'<div class="card-title">Recent Developments</div>'
-  +'<div class="grid3">'+NEWS.map(function(n){return '<div class="news-card" style="border-left-color:'+n.color+'"><div class="news-date">'+n.date+'</div><div class="news-head">'+n.headline+'</div><div class="news-body">'+n.body+'</div></div>';}).join('')+'</div></div>'
-  +'<div class="grid2">'
-  +'<div class="card"><div class="card-title">Highest Incarceration Rates — Top 10 Countries</div><div class="bchart">'+top10rate.map(function(c,i){return bar(c.flag+' '+c.name,c.rate,maxRate,rateColors[i]||'#555',c.rate+'/100K');}).join('')+'</div></div>'
-  +'<div class="card"><div class="card-title">Largest Prison Populations</div><div class="bchart">'+top8pop.map(function(c){return bar(c.flag+' '+c.name,c.pop,maxPop,c.color,fmt(c.pop));}).join('')+'</div></div>'
-  +'</div>'
-  +'<div class="card"><div class="card-title">All Countries — Incarceration Rate (per 100K) — Sorted High to Low</div><div class="bchart">'+all.slice().sort(function(a,b){return b.rate-a.rate;}).map(function(c){var col=c.rate>800?'#dc2626':c.rate>400?'#f97316':c.rate>200?'#d97706':c.rate>100?'#16a34a':'#0891b2';return bar(c.flag+' '+c.name,c.rate,1700,col,c.rate+'/100K');}).join('')+'</div></div>';
-}
-
-function renderCountries(){
-  var regions = [
-    {key:'northAmerica', label:'North America', emoji:'🌎'},
-    {key:'centralAmerica', label:'Central America & Mexico', emoji:'🌿'},
-    {key:'caribbean', label:'Caribbean', emoji:'🌊'},
-    {key:'southAmerica', label:'South America', emoji:'🌿'}
-  ];
-  var filter = cFilter;
-
-  var html = '<h2 class="sec-title">Country Profiles</h2>'
-  +'<p class="sec-sub">Click any country to expand full detail: agency, oversight committees, recent developments, facility types, and data sources.</p>'
-  +'<div style="margin-bottom:20px">'+['ALL','North America','Central America','Caribbean','South America'].map(function(f){return '<button class="fbtn'+(filter===f?' on':'')+'" onclick="cFilter=\''+f+'\';renderTab(\'countries\')">'+f+'</button>';}).join('')+'</div>';
-
-  regions.forEach(function(r){
-    var list = COUNTRIES[r.key];
-    if(filter !== 'ALL' && !r.label.includes(filter) && r.label !== filter) return;
-    // find matching filter
-    var match = filter==='ALL' || r.label===filter || r.label.includes(filter.replace('Central America','Central')) || (filter==='Caribbean'&&r.key==='caribbean') || (filter==='South America'&&r.key==='southAmerica') || (filter==='North America'&&r.key==='northAmerica');
-    if(!match) return;
-
-    html += '<div class="region-header"><h3>'+r.emoji+' '+r.label+'</h3><span class="region-count">'+list.length+' countries</span></div>';
-    list.forEach(function(c,i){
-      var rid = r.key+'-'+i;
-      var rateCol = c.rate>800?'#dc2626':c.rate>400?'#f97316':c.rate>200?'#d97706':c.rate>100?'#16a34a':'#0891b2';
-      html += '<div class="cc" onclick="tog(\''+rid+'\')">'
-        +'<div class="cc-header">'
-        +'<div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;flex-wrap:wrap">'
-        +'<span style="font-size:26px">'+c.flag+'</span>'
-        +'<span style="font-family:\'Playfair Display\',serif;font-size:18px;color:#fff;font-weight:700">'+c.name+'</span>'
-        +badge(c.region,c.color)+'</div>'
-        +'<div style="font-size:11px;color:var(--text3)">'+c.agency+'</div></div>'
-        +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
-        +'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:'+rateCol+';font-family:\'Playfair Display\',serif">'+c.rate+'</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Rate/100K</div></div>'
-        +'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:#fff;font-family:\'Playfair Display\',serif">'+fmt(c.pop)+'</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Prison Pop.</div></div>'
-        +(c.budget?'<div style="text-align:center;background:rgba(0,0,0,0.3);padding:8px 14px;border-radius:6px;border:1px solid var(--border2)"><div style="font-size:16px;font-weight:700;color:#fbbf24;font-family:\'Playfair Display\',serif">~$'+c.budget+'B</div><div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Annual Budget</div></div>':'')
-        +'</div></div>'
-        +'<div class="cc-body" id="'+rid+'">'
-        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:14px">'
-        +'<div><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Oversight Bodies</div><div>'+c.oversight+'</div></div>'
-        +'<div><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Facility Types</div><div>'+c.types+'</div></div>'
-        +'</div>'
-        +'<div style="margin-bottom:12px"><div style="font-size:9px;color:var(--red2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Recent Developments</div><div>'+c.recent+'</div></div>'
-        +'<div style="font-size:10px;color:var(--text3)"><strong style="color:var(--text2)">Sources: </strong>'+c.sources+'</div>'
-        +'</div>'
-        +'<div class="cc-hint">CLICK TO EXPAND ▾</div>'
-        +'</div>';
-    });
-  });
-  return html;
-}
-
-function renderComparison(){
-  var all = allCountries().slice().sort(function(a,b){return b[cSort]-a[cSort];});
-  var labels = {rate:'Incarceration Rate/100K',pop:'Prison Population',budget:'Annual Budget (USD B)',fac:'Facilities'};
-  return '<h2 class="sec-title">Cross-Country Comparison</h2>'
-  +'<p class="sec-sub">Compare all 22 profiled countries across key metrics. Countries are sorted by your selected metric.</p>'
-  +'<div style="margin-bottom:18px"><span style="color:var(--text3);font-size:11px;margin-right:8px">Sort by:</span>'
-  +['rate','pop','budget'].map(function(k){return '<button class="sbtn'+(cSort===k?' on':'')+'" onclick="cSort=\''+k+'\';renderTab(\'compare\')">'+{rate:'Inc. Rate',pop:'Population',budget:'Budget'}[k]+'</button>';}).join('')+'</div>'
-  +'<div class="tw"><table><thead><tr><th>#</th><th>Country</th><th>Region</th><th>Rate/100K</th><th>Prison Pop.</th><th>Facilities</th><th>Budget (USD)</th><th>Admin Agency</th></tr></thead><tbody>'
-  +all.map(function(c,i){
-    var rc=c.rate>800?'var(--red2)':c.rate>400?'#f97316':c.rate>200?'var(--gold2)':c.rate>100?'var(--green2)':'var(--blue2)';
-    return '<tr><td style="color:var(--text3)">'+('0'+(i+1)).slice(-2)+'</td>'
-    +'<td><span style="font-size:16px">'+c.flag+'</span> <strong style="color:#fff">'+c.name+'</strong></td>'
-    +'<td>'+badge(c.region,c.color)+'</td>'
-    +'<td style="color:'+rc+';font-weight:700;font-family:\'Playfair Display\',serif">'+c.rate+'</td>'
-    +'<td style="color:var(--text)">'+fmt(c.pop)+'</td>'
-    +'<td style="color:var(--text2)">'+c.fac+'</td>'
-    +'<td style="color:var(--gold2)">'+('$'+c.budget+'B')+'</td>'
-    +'<td style="color:var(--text3);max-width:200px;font-size:10px">'+c.agency.split(' — ')[0]+'</td>'
-    +'</tr>';
-  }).join('')+'</tbody></table></div>';
-}
-
-function renderSources(){
-  return '<h2 class="sec-title">Data Sources & Monthly Update Guide</h2>'
-  +'<p class="sec-sub">To update data: open this file in a text editor (TextEdit on Mac), find the DATA section at the very top, edit numbers or news items, save, and push to GitHub. Site updates within 2 minutes.</p>'
-  +'<div class="card" style="border-left:3px solid var(--green2);margin-bottom:22px">'
-  +'<div class="card-title" style="color:var(--green2)">How to Update Monthly</div>'
-  +'<div class="grid3">'
-  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">1. Find the data</div><div style="color:var(--text3);font-size:12px;line-height:1.5">Check monthly sources below. For each country, look up population, rate, and any major news.</div></div>'
-  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">2. Edit the file</div><div style="color:var(--text3);font-size:12px;line-height:1.5">GitHub → your repo → index.html → pencil icon → find the COUNTRIES or NEWS section → update.</div></div>'
-  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;padding:14px"><div style="color:var(--green2);font-weight:600;font-size:13px;margin-bottom:6px">3. Commit</div><div style="color:var(--text3);font-size:12px;line-height:1.5">Click Commit changes. Vercel auto-deploys in ~2 minutes. No coding required.</div></div>'
+  var n=DATA.national;
+  var maxSmug = Math.max.apply(null, DATA.smuggling_methods.map(function(m){return m.pct;}));
+  var maxUse  = Math.max.apply(null, DATA.usage_breakdown.map(function(u){return u.pct;}));
+  return '<h2 class="sec-title">National Overview</h2>'
+  +'<p class="sec-sub">An estimated 500,000 contraband cell phones are in active use across U.S. prisons at any given time — roughly 1 in 4 inmates has access. Seizures represent only ~20% of estimated total devices, as detection rates remain low without jamming technology.</p>'
+  +'<div class="card" style="border-left:3px solid #22c55e;margin-bottom:18px"><div class="ct">Breaking Developments</div><div class="g3">'
+  +DATA.news.map(function(n){return '<div class="news-card" style="border-left-color:'+n.color+'"><div class="ndate">'+n.date+'</div><div class="nhead">'+n.headline+'</div><div class="nbody">'+n.body+'</div></div>';}).join('')
   +'</div></div>'
-  +[
-    {name:"World Prison Brief",url:"prisonstudies.org",freq:"Quarterly",what:"Most comprehensive cross-country prison population and rate data. Use 'Highest to Lowest' list filtered by Americas."},
-    {name:"Prison Policy Initiative — Global Context",url:"prisonpolicy.org/global/2024.html",freq:"Annual",what:"Best U.S.-comparative analysis. Appendix 2 has all country rates."},
-    {name:"WOLA (Washington Office on Latin America)",url:"wola.org",freq:"Monthly",what:"Best English-language source for Central/South American prison news and reforms."},
-    {name:"Human Rights Watch — Americas",url:"hrw.org/americas",freq:"Monthly",what:"Country-by-country reports on prison conditions, political prisoners, torture."},
-    {name:"IACHR (Inter-American Commission on Human Rights)",url:"oas.org/en/iachr",freq:"Ongoing",what:"Country-specific precautionary measures and reports on detention conditions."},
-    {name:"ICRC — Americas",url:"icrc.org/en/where-we-work/americas",freq:"Annual",what:"Red Cross reports on Colombia, Venezuela, Haiti, and other active-conflict systems."},
-    {name:"Penal Reform International",url:"penalreform.org",freq:"Annual",what:"Global Prison Trends report (May each year) — best annual comprehensive update."},
-    {name:"Insight Crime",url:"insightcrime.org",freq:"Daily",what:"Best source for organized crime's role in regional prison systems."},
-    {name:"Brazil — SENAPPEN",url:"gov.br/senappen",freq:"Semi-annual",what:"Official RELIPEN reports. Released June and December. Brazil-specific data."},
-    {name:"Colombia — INPEC",url:"inpec.gov.co",freq:"Monthly",what:"Monthly statistical bulletins on prison population by facility."},
-    {name:"Canada — CSC Annual Report",url:"canada.ca/en/correctional-service",freq:"Annual",what:"Departmental Results Reports released each fall."}
-  ].map(function(s){
-    return '<div class="src-row"><div><div style="font-weight:600;color:#fff;font-size:13px">'+s.name+'</div><div style="color:var(--blue2);font-size:11px;margin-top:2px">'+s.url+'</div><div style="color:var(--text3);font-size:11px;margin-top:2px">'+s.what+'</div></div>'+badge(s.freq,'#7c3aed')+'</div>';
+  +'<div class="g2">'
+  +'<div class="card"><div class="ct">How Phones Enter — Entry Method Distribution</div><div class="bchart">'
+  +DATA.smuggling_methods.map(function(m){return bar(m.method,m.pct,maxSmug,m.color,m.pct+'%');}).join('')
+  +'</div></div>'
+  +'<div class="card"><div class="ct">How Phones Are Used — Estimated Usage Split</div><div class="bchart">'
+  +DATA.usage_breakdown.map(function(u){return bar(u.use,u.pct,maxUse,u.color,u.pct+'%');}).join('')
+  +'</div></div>'
+  +'</div>'
+  +'<div class="card"><div class="ct">National Seizure Trend — Actual + Projected</div><div class="bchart">'
+  +DATA.projections.map(function(p){
+    var col=p.projected?'#374151':'#22c55e';
+    var lbl=p.projected?p.year+' (proj)':String(p.year);
+    return bar(lbl,p.seizures,140000,col,fmt(p.seizures));
+  }).join('')
+  +'<div style="margin-top:10px;font-size:10px;color:#374151">Projections assume current ~10%/yr growth trend absent effective jamming intervention. Sources: Urban Institute, state DOC reports, author estimates.</div>'
+  +'</div></div>';
+}
+
+function renderByState(){
+  var sk=sortKey;
+  var sorted=DATA.states.slice().sort(function(a,b){
+    var av=a[sk]||0, bv=b[sk]||0; return bv-av;
+  });
+  var maxVal=Math.max.apply(null,sorted.map(function(s){return s[sk]||0;}));
+  return '<h2 class="sec-title">By State — Seizure Data</h2>'
+  +'<p class="sec-sub">State-by-state data is incomplete — only 20 of 50 DOCs provided usable statistics in the most recent national survey (Urban Institute 2021). States below represent the best available documented data. Rate/1K = seized phones per 1,000 inmates.</p>'
+  +'<div style="margin-bottom:16px"><span style="color:#4b5563;font-size:11px;margin-right:8px">Sort by:</span>'
+  +[{k:'seized2024',l:'2024 Seizures'},{k:'seized2023',l:'2023 Seizures'},{k:'rate_per1k',l:'Rate/1K Inmates'}].map(function(o){
+    return '<button class="sbtn'+(sk===o.k?' on':'')+'" onclick="sortKey=\''+o.k+'\';renderTab(\'states\')">'+o.l+'</button>';
+  }).join('')+'</div>'
+  +'<div class="card" style="margin-bottom:18px"><div class="ct">Documented Seizures by State</div><div class="bchart">'
+  +sorted.map(function(s){
+    var v=s[sk]||0;
+    if(!v)return '';
+    return bar(s.name,v,maxVal,s.color,fmt(v));
+  }).join('')+'</div></div>'
+  +sorted.map(function(s,i){
+    var id='st-'+i;
+    return '<div class="ec" onclick="tog(\''+id+'\')">'
+    +'<div class="eh"><div style="flex:1">'
+    +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">'
+    +'<span style="font-size:20px;font-weight:800;color:'+s.color+'">'+s.s+'</span>'
+    +'<span style="font-size:15px;color:#fff;font-weight:700">'+s.name+'</span>'
+    +(s.seized2024?badge('2024: '+s.seized2024.toLocaleString()+' seized','#22c55e'):'')
+    +(s.seized2023?badge('2023: '+s.seized2023.toLocaleString(),'#16a34a'):'')
+    +(s.rate_per1k?badge(s.rate_per1k+'/1K inmates','#d97706'):'')
+    +'</div>'
+    +'<div style="font-size:11px;color:#4b5563">'+s.tech+'</div>'
+    +'</div></div>'
+    +'<div class="eb" id="'+id+'">'
+    +'<div class="g2" style="gap:14px">'
+    +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Key Context</div><div>'+s.note+'</div></div>'
+    +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Source</div><div>'+s.source+'</div></div>'
+    +'</div></div>'
+    +'<div class="ehint">CLICK TO EXPAND ▾</div></div>';
   }).join('');
 }
 
-var TABS = [
-  {id:'overview', label:'🌎 Overview'},
-  {id:'countries', label:'🏛 Country Profiles'},
-  {id:'compare', label:'📊 Compare All'},
-  {id:'sources', label:'📚 Sources'}
-];
+function renderThreats(){
+  var sevOrder = {'Critical':0,'High':1,'Medium':2,'Low':3};
+  var sorted = DATA.threats.slice().sort(function(a,b){return sevOrder[a.severity]-sevOrder[b.severity];});
+  return '<h2 class="sec-title">Security Threats & Criminal Uses</h2>'
+  +'<p class="sec-sub">Contraband phones enable incarcerated individuals to operate as if they were outside — with full unmonitored access. The consequences range from fatal violence to large-scale organized crime.</p>'
+  +sorted.map(function(t){
+    return '<div class="threat-card" style="background:#09091a;border-color:'+t.color+'30;border-left-color:'+t.color+'">'
+    +'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
+    +'<div style="font-weight:700;color:#fff;font-size:15px">'+t.name+'</div>'
+    +badge(t.severity,t.color)+'</div>'
+    +'<div style="font-size:12px;color:#6b7280;line-height:1.6">'+t.examples+'</div>'
+    +'</div>';
+  }).join('');
+}
 
-function tog(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function renderTechnology(){
+  return '<h2 class="sec-title">Interdiction Technologies</h2>'
+  +'<p class="sec-sub">Seven categories of technology address the contraband phone problem — from legal detection systems to federally-restricted jamming. The FCC voted Sept 30, 2025 to open public comment on allowing state-level jamming for the first time.</p>'
+  +DATA.technology.map(function(t,i){
+    var id='tech-'+i;
+    return '<div class="ec" onclick="tog(\''+id+'\')">'
+    +'<div class="eh"><div style="flex:1">'
+    +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">'
+    +'<span style="font-size:15px;font-weight:700;color:#d1fae5">'+t.name+'</span>'
+    +badge(t.status,t.statusColor)
+    +'</div>'
+    +'<div style="font-size:11px;color:#4b5563">Cost: '+t.cost+' &nbsp;|&nbsp; Deployed: '+t.deployed+'</div>'
+    +'</div></div>'
+    +'<div class="eb" id="'+id+'">'
+    +'<div class="g2" style="gap:14px;margin-bottom:12px">'
+    +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">How It Works</div><div>'+t.how+'</div></div>'
+    +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Effectiveness</div><div style="margin-bottom:8px">'+t.effectiveness+'</div>'
+    +'<div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Known Deployments</div><div>'+t.examples+'</div></div>'
+    +'</div>'
+    +'<div><div style="font-size:9px;color:#dc2626;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px">Limitations / Legal Status</div><div>'+t.limit+'</div></div>'
+    +'</div>'
+    +'<div class="ehint">CLICK TO EXPAND ▾</div></div>';
+  }).join('');
+}
+
+function renderSmuggling(){
+  var maxS=Math.max.apply(null,DATA.smuggling_methods.map(function(m){return m.pct;}));
+  return '<h2 class="sec-title">Smuggling Methods — Deep Dive</h2>'
+  +'<p class="sec-sub">Six documented entry vectors, each requiring different countermeasures. Staff corruption is the single largest documented vector and the hardest to address through technology alone.</p>'
+  +'<div class="card" style="margin-bottom:18px"><div class="ct">Entry Method Distribution (estimated)</div><div class="bchart">'
+  +DATA.smuggling_methods.map(function(m){return bar(m.method,m.pct,maxS,m.color,m.pct+'%');}).join('')
+  +'</div></div>'
+  +DATA.smuggling_methods.map(function(m){
+    return '<div class="threat-card" style="background:#09091a;border-color:'+m.color+'30;border-left-color:'+m.color+'">'
+    +'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
+    +'<div style="font-weight:700;color:#fff;font-size:14px">'+m.method+'</div>'
+    +badge(m.pct+'% of entries',m.color)+'</div>'
+    +'<div style="font-size:12px;color:#6b7280;line-height:1.6">'+m.detail+'</div>'
+    +'</div>';
+  }).join('')
+  +'<div class="card" style="margin-top:18px;border-left:3px solid #d97706"><div class="ct">Market Economics</div>'
+  +'<div class="g3">'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#d97706;font-size:22px;font-weight:800;margin-bottom:4px">$300-450</div><div style="color:#4b5563;font-size:11px">Street price inside prison (vs $80 retail for Android 15)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#dc2626;font-size:22px;font-weight:800;margin-bottom:4px">$200-400</div><div style="color:#4b5563;font-size:11px">Typical guard bribe per device smuggled</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#f97316;font-size:22px;font-weight:800;margin-bottom:4px">$100K+</div><div style="color:#4b5563;font-size:11px">One officer earned via systematic phone smuggling (FBI case)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#22c55e;font-size:22px;font-weight:800;margin-bottom:4px">$50</div><div style="color:#4b5563;font-size:11px">Charge per call placed on inmate-owned phone (inmate economy)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#7c3aed;font-size:22px;font-weight:800;margin-bottom:4px">$1,000</div><div style="color:#4b5563;font-size:11px">Black market phone value in Mississippi (2x an officer weekly salary)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:14px"><div style="color:#0891b2;font-size:22px;font-weight:800;margin-bottom:4px">$8/gram</div><div style="color:#4b5563;font-size:11px">Drone delivery surcharge (charged by gram for payload weight)</div></div>'
+  +'</div></div>';
+}
+
+function renderSeizureTypes(){
+  var maxST=Math.max.apply(null,DATA.seizure_types.map(function(s){return s.pct;}));
+  return '<h2 class="sec-title">Seizure Types & Projections</h2>'
+  +'<p class="sec-sub">What gets seized and the national trajectory. Seizures are a floor, not a ceiling — they reflect detection capability as much as device prevalence.</p>'
+  +'<div class="g2">'
+  +'<div class="card"><div class="ct">Seized Device Types — Distribution</div><div class="bchart">'
+  +DATA.seizure_types.map(function(s){return bar(s.type,s.pct,maxST,s.color,s.pct+'%');}).join('')
+  +'</div></div>'
+  +'<div class="card"><div class="ct">National Seizure Trend + Projections</div><div class="bchart">'
+  +DATA.projections.map(function(p){
+    var col=p.projected?'#374151':'#22c55e';
+    return bar(p.projected?p.year+' est.':p.year,p.seizures,140000,col,fmt(p.seizures));
+  }).join('')+'</div></div>'
+  +'</div>'
+  +'<div class="card"><div class="ct">Device Type Notes</div><div class="g3">'
+  +DATA.seizure_types.map(function(s){
+    return '<div style="background:rgba(0,0,0,0.3);border:1px solid #1a1a30;border-radius:6px;padding:13px">'
+    +'<div style="color:'+s.color+';font-weight:700;font-size:13px;margin-bottom:5px">'+s.type+'</div>'
+    +badge(s.pct+'%',s.color)
+    +'<div style="font-size:11px;color:#4b5563;margin-top:6px;line-height:1.5">'+s.note+'</div>'
+    +'</div>';
+  }).join('')+'</div></div>'
+  +'<div class="card" style="border-left:3px solid #dc2626"><div class="ct">The Iceberg Problem — Why Seizures Undercount Reality</div>'
+  +'<div class="g3">'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#dc2626;font-size:20px;font-weight:800">~1 in 4</div><div style="color:#4b5563;font-size:11px;margin-top:3px">Estimated inmates with phone access (Urban Institute research)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#f97316;font-size:20px;font-weight:800">~20%</div><div style="color:#4b5563;font-size:11px;margin-top:3px">Estimated annual seizure rate of total devices present</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#d97706;font-size:20px;font-weight:800">31/1K</div><div style="color:#4b5563;font-size:11px;margin-top:3px">Average phones per 1,000 inmates (Urban Institute 2020 survey)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#22c55e;font-size:20px;font-weight:800">366</div><div style="color:#4b5563;font-size:11px;margin-top:3px">Max phones seized by a single facility in one year (Urban Institute)</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#7c3aed;font-size:20px;font-weight:800">85%</div><div style="color:#4b5563;font-size:11px;margin-top:3px">DOC administrators calling contraband phones a serious security threat</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:13px"><div style="color:#0891b2;font-size:20px;font-weight:800">9M+</div><div style="color:#4b5563;font-size:11px;margin-top:3px">Texts/transmissions intercepted over 5 years in just 2 MS prisons</div></div>'
+  +'</div></div>';
+}
+
+function renderLegislation(){
+  return '<h2 class="sec-title">Legislative & Policy Timeline</h2>'
+  +'<p class="sec-sub">The policy debate has centered on one question for 15+ years: should states be allowed to jam cell phone signals in prisons? The FCC voted Sept 30, 2025 to advance public comment on this question for the first time.</p>'
+  +'<div class="timeline">'
+  +DATA.legislation.map(function(l){
+    return '<div class="tev"><div class="tyr">'+l.year+'</div><div style="font-weight:700;color:#d1fae5;font-size:13px;margin-bottom:3px">'+l.event+'</div><div class="ttxt">'+l.detail+'</div></div>';
+  }).join('')
+  +'</div>'
+  +'<div class="card" style="margin-top:22px;border-left:3px solid #22c55e"><div class="ct">Current Legislative Status (Feb 2026)</div>'
+  +'<div class="g2" style="gap:14px">'
+  +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Federal Legislation</div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:12px;margin-bottom:8px"><div style="color:#d1fae5;font-weight:700;font-size:12px">S.1137 — Cellphone Jamming Reform Act of 2025</div><div style="color:#4b5563;font-size:11px;margin-top:4px">Sen. Cotton (R-AR) + Sen. Lankford (R-OK). Companion: H.R.2350 (Rep. Kustoff, R-TN). 9 Senate cosponsors. Would allow state/federal prisons to operate jamming systems. Status: Pending committee action as of Feb 2026.</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:12px"><div style="color:#d1fae5;font-weight:700;font-size:12px">Lt. Albarati Stopping Prison Contraband Act</div><div style="color:#4b5563;font-size:11px;margin-top:4px">Passed Senate September 2024. Addresses BOP contraband interdiction. Named for officer murdered 2013. Awaiting House action.</div></div></div>'
+  +'<div><div style="font-size:9px;color:#22c55e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">FCC Regulatory Track</div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:12px;margin-bottom:8px"><div style="color:#22c55e;font-weight:700;font-size:12px">✓ Sept 30, 2025: FCC votes to advance jamming NPRM</div><div style="color:#4b5563;font-size:11px;margin-top:4px">Unanimous 3-0 vote. Public comment period open. Second vote at TBD date. Commissioner Gomez raised concern about 9-1-1 interference; proposed pilot program approach.</div></div>'
+  +'<div style="background:rgba(0,0,0,0.3);border-radius:6px;padding:12px"><div style="color:#d1fae5;font-weight:700;font-size:12px">CIS Approvals Accelerating (Phase 1/2)</div><div style="color:#4b5563;font-size:11px;margin-top:4px">FCC GN Docket No. 13-111. 34 Phase 2 self-certifications as of 2025. New SOC SignalSecure platform enables real-time detection + automated carrier disconnection in minutes. Legally available to states now.</div></div></div>'
+  +'</div></div>';
+}
+
+function renderSources(){
+  return '<h2 class="sec-title">Data Sources & Update Guide</h2>'
+  +'<p class="sec-sub">To update: GitHub → your repo → index.html → pencil icon → find DATA section → edit numbers or news → Commit. Site updates in 2 minutes.</p>'
+  +'<div class="card" style="border-left:3px solid #22c55e;margin-bottom:20px"><div class="ct" style="color:#22c55e">Update Schedule</div>'
+  +'<div class="g3">'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:6px;padding:13px"><div style="color:#22c55e;font-weight:700;font-size:13px;margin-bottom:5px">Monthly</div><div style="color:#4b5563;font-size:11px;line-height:1.5">Check GA, SC, NJ DOC for new seizure reports. Update news section with major incidents. Check FCC docket for jamming ruling updates.</div></div>'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:6px;padding:13px"><div style="color:#22c55e;font-weight:700;font-size:13px;margin-bottom:5px">Quarterly</div><div style="color:#4b5563;font-size:11px;line-height:1.5">Urban Institute publications. BOP annual stats. State AG press releases. Congressional hearing records. FCC GN Docket 13-111 updates.</div></div>'
+  +'<div style="background:rgba(21,128,61,0.08);border:1px solid rgba(34,197,94,0.15);border-radius:6px;padding:13px"><div style="color:#22c55e;font-weight:700;font-size:13px;margin-bottom:5px">Annually</div><div style="color:#4b5563;font-size:11px;line-height:1.5">Urban Institute needs assessment updates. BJS prison statistics. GAO prison technology reports. National data recalibration.</div></div>'
+  +'</div></div>'
+  +[
+    {name:"Urban Institute — Contraband Cell Phones Needs Assessment 2024",url:"urban.org",freq:"Annual",what:"Best national survey. 20 state DOCs with comprehensive statistical data. Foundation for all national estimates."},
+    {name:"FCC — GN Docket No. 13-111 (CIS Approvals)",url:"fcc.gov",freq:"Ongoing",what:"Contraband Interdiction System approvals, NPRM updates, jamming policy developments."},
+    {name:"Georgia DOC / GA Attorney General",url:"law.georgia.gov",freq:"Monthly",what:"Highest-volume state. Press releases with seizure totals. Best source for current national numbers."},
+    {name:"South Carolina DOC / SC AG",url:"scag.gov",freq:"Quarterly",what:"Pioneer state on managed access and policy advocacy. Grand jury reports. Highest per-inmate rate historically."},
+    {name:"WOLA — Prison Tech Monitoring",url:"wola.org",freq:"Monthly",what:"Washington Office on Latin America also covers US prison technology policy."},
+    {name:"Prison Policy Initiative — Contraband Phones",url:"prisonpolicy.org",freq:"Monthly",what:"Critical analysis of jamming policy, FCC regulation, telecom contractor interests. Filter Magazine (filtermag.org) is sister publication."},
+    {name:"Insight Crime — Prison Gangs",url:"insightcrime.org",freq:"Monthly",what:"Best source for gang-phone connection, organized crime run from prison cells."},
+    {name:"Congressional Research Service / GAO",url:"gao.gov / crs.gov",freq:"Annual",what:"GAO-11-893 is the foundational state-level historical dataset. Periodic updates on BOP technology programs."},
+    {name:"BOP Annual Statistics",url:"bop.gov/about/statistics",freq:"Annual",what:"Federal prison contraband seizure data. Federal-only but useful for trend comparison."},
+    {name:"FCC Sept 9, 2025 Fact Sheet — Jamming NPRM",url:"docs.fcc.gov/public/attachments/DOC-414416A1.pdf",freq:"One-time",what:"The primary FCC document on current jamming policy proposal. Essential reference for technology section."}
+  ].map(function(s){
+    return '<div class="src-row"><div><div style="font-weight:700;color:#fff;font-size:13px">'+s.name+'</div><div style="color:#3b82f6;font-size:11px;margin-top:2px">'+s.url+'</div><div style="color:#4b5563;font-size:11px;margin-top:2px">'+s.what+'</div></div>'+badge(s.freq,'#22c55e')+'</div>';
+  }).join('');
+}
+
+var TABS=[
+  {id:'overview',label:'📊 Overview'},
+  {id:'states',label:'🗺 By State'},
+  {id:'threats',label:'⚠️ Threats'},
+  {id:'technology',label:'📡 Technology'},
+  {id:'smuggling',label:'🚫 Smuggling'},
+  {id:'seizures',label:'📦 Seizure Types'},
+  {id:'legislation',label:'⚖️ Legislation'},
+  {id:'sources',label:'📚 Sources'}
+];
 
 function renderTab(tabId){
   activeTab=tabId;
   document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tabId);});
-  var fn={overview:renderOverview,countries:renderCountries,compare:renderComparison,sources:renderSources}[tabId]||renderOverview;
+  var renderers={overview:renderOverview,states:renderByState,threats:renderThreats,technology:renderTechnology,smuggling:renderSmuggling,seizures:renderSeizureTypes,legislation:renderLegislation,sources:renderSources};
+  var fn=renderers[tabId]||renderOverview;
   document.getElementById('tab-content').innerHTML=fn()
-    +'<div class="footer">Data sourced from World Prison Brief, WOLA, HRW, IACHR, ICRC, PPI, national prison agencies. Population and budget figures are approximate — see Sources tab for individual country data provenance. Last updated: '+HEMI.last_updated+'. Next update: 2026-03-01.</div>';
+    +'<div class="footer">Sources: Urban Institute (2021/2024), FCC GN Docket 13-111, Georgia/South Carolina DOCs, FBI Law Enforcement Bulletin, GAO-11-893, NBC News, Prison Policy Initiative, Filter Magazine, congressional press releases. All national totals are estimates extrapolated from available state data — no single national dataset exists. Last updated: '+DATA.last_updated+'</div>';
 }
 
 function init(){
-  var h=HEMI;
+  var n=DATA.national;
   document.getElementById('app').innerHTML=
-    '<div class="header">'
-    +'<div class="header-eyebrow">Comparative Justice Systems · Western Hemisphere · '+h.data_as_of+'</div>'
-    +'<h1>Western Hemisphere<br><em>Prison & Detention Monitor</em></h1>'
-    +'<p class="header-sub">Comparative data on incarceration, budgets, oversight, and recent developments across 35 countries — from Canada to Tierra del Fuego. The region incarcerates approximately 2.85 million people in facilities ranging from democratic reform models to authoritarian mega-prisons.</p>'
-    +'<div class="status-row">'
-    +'<div class="status-pill"><span class="status-dot"></span><span>Data current · Last updated '+h.last_updated+'</span></div>'
-    +'<div class="region-pills"><span class="rpill">🌎 35 Countries</span><span class="rpill">🔴 '+h.highest_rate_country+' '+h.highest_rate+'/100K highest</span><span class="rpill">🟢 '+h.lowest_rate_country+' '+h.lowest_rate+'/100K lowest</span><span class="rpill">🇺🇸 U.S. = '+h.us_pct_of_hemisphere+'% of hemisphere total</span></div>'
-    +'</div>'
-    +'<div class="kpi-row">'
-    +kpi('Countries Covered','35','North + Central + South America + Caribbean','#c026d3')
-    +kpi('Estimated Total Pop.','~2.85M','All profiled countries combined','#dc2626')
-    +kpi('Highest Rate','1,659/100K','El Salvador (2025)','#f97316')
-    +kpi('Lowest Rate','88/100K','Canada (2024)','#22c55e')
-    +kpi('Largest System','~2M','United States — 69% of hemisphere','#3b82f6')
-    +kpi('Fastest Growing','El Salvador','110,000+ since 2022 state of exception','#a78bfa')
+    '<div class="hdr">'
+    +'<div class="eyebrow">U.S. Correctional Security · Contraband Intelligence Dashboard · '+n.data_as_of+'</div>'
+    +'<h1>Contraband Cell Phones<br>in <em>U.S. Prisons</em></h1>'
+    +'<p class="hdrsub">Estimated 500,000 unauthorized devices in active use across U.S. prisons. Seizures capture only ~20% of total. States legally barred from using the most effective countermeasure — signal jamming — while the FCC advances a historic rule change. Data as of '+n.data_as_of+'.</p>'
+    +'<div class="status-pill"><span class="sdot"></span><span>Data current · Last updated '+DATA.last_updated+' · FCC jamming NPRM open for comment</span></div>'
+    +'<div class="krow">'
+    +kpi('Est. Devices in Circulation','~500K','1 in 4 inmates has access (Urban Institute)','#22c55e')
+    +kpi('Annual Seizures (est.)','~100K','Only ~20% of estimated total devices','#f97316')
+    +kpi('Phones per 1,000 Inmates','31 avg','Maximum: 366 in one facility (Urban Institute)','#d97706')
+    +kpi('DOC Admins: Serious Threat','85%','Of all DOC administrators surveyed','#dc2626')
+    +kpi('GA Seized in 2024','15,500+','Highest documented state total in nation','#dc2626')
+    +kpi('FCC Jamming Vote','Sept 30, 2025','Unanimous 3-0 to advance — historic first','#22c55e')
     +'</div></div>'
     +'<div class="tabs">'+TABS.map(function(t){return '<button class="tab'+(t.id==='overview'?' active':'')+'" data-tab="'+t.id+'" onclick="renderTab(\''+t.id+'\')">'+t.label+'</button>';}).join('')+'</div>'
-    +'<div class="content"><div id="tab-content"></div></div>';
+    +'<div class="con"><div id="tab-content"></div></div>';
   renderTab('overview');
 }
 
